@@ -1,4 +1,4 @@
-# the-golf-guild
+# thegolfguild-app
 
 ## Project setup
 ```

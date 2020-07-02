@@ -93,7 +93,7 @@
                 </v-layout>
                 <v-layout wrap justify-center v-if="newRoundMode">
                     <v-flex xs12 sm6 md4>
-                        <v-btn block x-large :disabled="!selectedGolfCourse || !selectedTee" color="green" class="white--text" @click="createRound">
+                        <v-btn block x-large :disabled="!selectedGolfCourse || !selectedTee" color="light-green" class="white--text" @click="createRound">
                             Start
                         </v-btn>
                     </v-flex>
@@ -142,13 +142,13 @@
                                     >
                                         <template v-slot:body.append="{ items }">
                                             <tr>
-                                                <td colspan="2" class="headline font-weight-black text-center v-data-table__divider">
+                                                <td colspan="2" class="headline font-weight-medium text-center v-data-table__divider">
                                                     OUT
                                                 </td>
-                                                <td class="headline font-weight-black text-center v-data-table__divider">
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
                                                     {{selectedRound.outYards}}
                                                 </td>
-                                                <td class="headline font-weight-black text-center v-data-table__divider">
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
                                                     {{selectedRound.outPar}}
                                                 </td>
                                                 <td class="headline font-weight-black text-center">
@@ -157,22 +157,22 @@
                                             </tr>
                                         </template>
                                         <template v-slot:item.number="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.number}}
                                             </span>
                                         </template>
                                         <template v-slot:item.handicap="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.handicap}}
                                             </span>
                                         </template>
                                         <template v-slot:item.yardage="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.yardage}}
                                             </span>
                                         </template>
                                         <template v-slot:item.par="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.par}}
                                             </span>
                                         </template>
@@ -193,13 +193,13 @@
                                     >
                                         <template v-slot:body.append="{items}">
                                             <tr>
-                                                <td colspan="2" class="headline font-weight-black text-center v-data-table__divider">
+                                                <td colspan="2" class="headline font-weight-medium text-center v-data-table__divider">
                                                     IN
                                                 </td>
-                                                <td class="headline font-weight-black text-center v-data-table__divider">
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
                                                     {{selectedRound.inYards}}
                                                 </td>
-                                                <td class="headline font-weight-black text-center v-data-table__divider">
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
                                                     {{selectedRound.inPar}}
                                                 </td>
                                                 <td class="headline font-weight-black text-center">
@@ -207,13 +207,13 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2" class="headline font-weight-black text-center v-data-table__divider">
+                                                <td colspan="2" class="headline font-weight-medium text-center v-data-table__divider">
                                                     TOTAL
                                                 </td>
-                                                <td class="headline font-weight-black text-center v-data-table__divider">
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
                                                     {{selectedRound.totalYards}}
                                                 </td>
-                                                <td class="headline font-weight-black text-center v-data-table__divider">
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
                                                     {{selectedRound.totalPar}}
                                                 </td>
                                                 <td class="headline font-weight-black text-center">
@@ -222,22 +222,22 @@
                                             </tr>
                                         </template>
                                         <template v-slot:item.number="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.number}}
                                             </span>
                                         </template>
                                         <template v-slot:item.handicap="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.handicap}}
                                             </span>
                                         </template>
                                         <template v-slot:item.yardage="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.yardage}}
                                             </span>
                                         </template>
                                         <template v-slot:item.par="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.par}}
                                             </span>
                                         </template>
@@ -291,18 +291,6 @@
                                 </v-container>
                             </v-flex>
                         </v-layout>
-                        <v-layout wrap justify-center>
-                            <v-flex xs6>
-                                <v-btn block large outlined @click="goToNextRoundHole" :disabled="selectedRound.RoundHoles.indexOf(selectedRoundHole) <= 0">
-                                    <v-icon>mdi-chevron-left</v-icon>Previous Hole
-                                </v-btn>
-                            </v-flex>
-                            <v-flex xs6>
-                                <v-btn block large outlined @click="goToPreviousRoundHole" :disabled="selectedRound.RoundHoles.indexOf(selectedRoundHole) >= 17">
-                                    Next Hole<v-icon>mdi-chevron-right</v-icon>
-                                </v-btn>
-                            </v-flex>
-                        </v-layout>
                         <v-layout wrap align-center>
                             <v-flex xs12>
                                 <v-card outlined>
@@ -313,22 +301,22 @@
                                         disable-sort
                                     >
                                         <template v-slot:item.number="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.number}}
                                             </span>
                                         </template>
                                         <template v-slot:item.handicap="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.handicap}}
                                             </span>
                                         </template>
                                         <template v-slot:item.yardage="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.yardage}}
                                             </span>
                                         </template>
                                         <template v-slot:item.par="{ item }">
-                                            <span class="headline font-weight-black" tile flat>
+                                            <span class="headline font-weight-medium" tile flat>
                                                 {{item.par}}
                                             </span>
                                         </template>
@@ -341,22 +329,28 @@
                                 </v-card>
                             </v-flex>
                         </v-layout>
+                        <v-layout wrap justify-center>
+                            <v-flex xs6>
+                                <v-btn block large outlined @click="goToNextRoundHole" :disabled="selectedRound.RoundHoles.indexOf(selectedRoundHole) <= 0">
+                                    <v-icon>mdi-chevron-left</v-icon>Previous Hole
+                                </v-btn>
+                            </v-flex>
+                            <v-flex xs6>
+                                <v-btn block large outlined @click="goToPreviousRoundHole" :disabled="selectedRound.RoundHoles.indexOf(selectedRoundHole) >= 17">
+                                    Next Hole<v-icon>mdi-chevron-right</v-icon>
+                                </v-btn>
+                            </v-flex>
+                        </v-layout>
+                        <v-layout wrap justify-center>
+                            <v-flex xs12>
+                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)">
+                                    <v-icon>mdi-plus</v-icon>{{selectedRoundHole.RoundStrokes.length > 0 ? 'Add Another Stroke' : 'Add a Stroke'}}
+                                </v-btn>
+                            </v-flex>
+                        </v-layout>
                         <v-layout v-if="!rearrangeStrokesMode" wrap align-center>
-                            <v-flex xs12 v-for="roundStroke in selectedRoundHole.RoundStrokes" :key="roundStroke.roundStrokeId">
-                                <v-card outlined>
-                                    <v-container>
-                                        <v-layout wrap align-center>
-                                            <v-flex grow>
-                                                Stroke {{roundStroke.number}}
-                                            </v-flex>
-                                            <v-flex shrink class="pt-0 pb-0 pr-0">
-                                                <v-btn icon class="pa-0" @click.stop="setSelectedRoundStroke(roundStroke)">
-                                                    <v-icon>mdi-trash-can-outline</v-icon>
-                                                </v-btn>
-                                            </v-flex>
-                                        </v-layout>
-                                    </v-container>
-                                </v-card>
+                            <v-flex xs12 v-for="(roundStroke, i) in selectedRoundHole.RoundStrokes" :key="roundStroke.roundStrokeId">
+                                <round-stroke :roundStroke="roundStroke" :previousRoundStroke="selectedRoundHole.RoundStrokes[i - 1] || null" @setSelectedRoundStroke="setSelectedRoundStroke"></round-stroke>
                             </v-flex>
                         </v-layout>
                         <draggable v-else v-model="selectedRoundHole.RoundStrokes" handle=".handle" class="layout wrap align-center" group="roundStrokes" draggable=".draggable">
@@ -377,14 +371,14 @@
                                 </v-card>
                             </v-flex>
                         </draggable>
-                        <v-layout wrap align-center>
+                        <v-layout wrap align-center v-if="selectedRoundHole.RoundStrokes.length > 0">
                             <v-flex xs12>
                                 <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)">
                                     <v-icon>mdi-plus</v-icon>Add Another Stroke
                                 </v-btn>
                             </v-flex>
                         </v-layout>
-                        <v-layout wrap justify-center>
+                        <v-layout wrap justify-center v-if="selectedRoundHole.RoundStrokes.length > 0">
                             <v-flex xs6>
                                 <v-btn block large outlined @click="goToNextRoundHole" :disabled="selectedRound.RoundHoles.indexOf(selectedRoundHole) <= 0">
                                     <v-icon>mdi-chevron-left</v-icon>Previous Hole
@@ -517,10 +511,10 @@ import draggable from 'vuedraggable'
 
 import { GolfCoursesRepository } from '../repositories';
 import { UsersRepository } from '../repositories';
-import { TeesRepository } from '../repositories';
 import { RoundsRepository } from '../repositories';
 
 import TeeBoxIcon from '../components/TeeBoxIcon';
+import RoundStroke from '../components/RoundStroke';
 
 export default {
     name: "PlayGolf",
@@ -528,14 +522,15 @@ export default {
     components: {
         draggable,
         TeeBoxIcon,
+        RoundStroke,
     },
 
     data: () => ({
+
         currentView: 0,
 
         golfCoursesRepository: new GolfCoursesRepository(),
         usersRepository: new UsersRepository(),
-        teesRepository: new TeesRepository(),
         roundsRepository: new RoundsRepository(),
 
         golfCourses: [],

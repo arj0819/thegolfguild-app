@@ -93,7 +93,7 @@
                 <v-icon>{{leftNavOpen?'mdi-backburger':'mdi-menu'}}</v-icon>
             </v-btn>
 
-            <span class="heading font-weight-bold mr-2 ml-1">The Golf Guild</span>
+            <span v-if="$vuetify.breakpoint.smAndUp" class="headline font-weight-bold ml-1 mr-3">The Golf Guild</span>
             <img src="../assets/logos/TheGolfGuildLogo4Green.png" height="60" class="ml-1 mr-1" />
             <span class="caption font-weight-bold mr-3 ml-3">{{this.$route.name}}</span>
             <v-spacer></v-spacer>

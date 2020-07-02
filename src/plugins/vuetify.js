@@ -17,6 +17,9 @@ export default new Vuetify({
                 highContrast: '#000000',
                 background: '#FFFFFF',
                 footer: '#f5f5f5',
+                golfGuildPrimary: '#8bc34a',
+                golfGuildSecondary: '#33691e',
+                golfGuildTertiary: '#9dcc66',
             },
             dark: {
                 primary: '#1976D2',
@@ -29,6 +32,9 @@ export default new Vuetify({
                 highContrast: '#FFFFFF',
                 background: '#121212',
                 footer: '#272727',
+                golfGuildPrimary: '#8bc34a',
+                golfGuildSecondary: '#33691e',
+                golfGuildTertiary: '#9dcc66',
             },
         }
     }
