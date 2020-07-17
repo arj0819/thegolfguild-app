@@ -24,15 +24,15 @@ module.exports = Object.freeze({
         TEXT: 'Putt (Long)'
     },
     PUTT_MEDIUM: {
-        ID: 5,
+        ID: 6,
         TEXT: 'Putt (Med)'
     },
     PUTT_SHORT: {
-        ID: 5,
+        ID: 7,
         TEXT: 'Putt (Short)'
     },
     TEESHOT: {
-        ID: 6,
+        ID: 8,
         TEXT: 'Teeshot'
     },
     UNSPECIFIED: {
@@ -62,10 +62,18 @@ module.exports = Object.freeze({
         },
         {
             ID: 5,
-            TEXT: 'Putt'
+            TEXT: 'Putt (Long)'
         },
         {
             ID: 6,
+            TEXT: 'Putt (Med)'
+        },
+        {
+            ID: 7,
+            TEXT: 'Putt (Short)'
+        },
+        {
+            ID: 8,
             TEXT: 'Teeshot'
         },
     ],

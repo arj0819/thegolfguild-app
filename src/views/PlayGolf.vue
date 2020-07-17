@@ -122,7 +122,7 @@
                                                 <v-spacer/>
                                                 <v-flex shrink class="pr-0 text-right">
                                                     <span class="headline font-weight-bold pr-1" :class="selectedRound.scoreRelativeToPar > 0 ? 'blue--text' : selectedRound.scoreRelativeToPar == 0 ? 'grey--text' : 'red--text'">{{selectedRound.scoreRelativeToPar == 0 ? 'E' : selectedRound.scoreRelativeToPar > 0 ? `+${selectedRound.scoreRelativeToPar}`:`${selectedRound.scoreRelativeToPar}`}}</span>
-                                                    <span class="headline font-weight-light">~{{selectedRound.thruHole}}</span>
+                                                    <span class="headline font-weight-light">~ {{selectedRound.thruHole}}</span>
                                                 </v-flex>
                                             </v-layout>
                                         </v-flex>
@@ -283,7 +283,7 @@
                                                 <v-spacer/>
                                                 <v-flex shrink class="pr-0 text-right">
                                                     <span class="headline font-weight-bold pr-1" :class="selectedRound.scoreRelativeToPar > 0 ? 'blue--text' : selectedRound.scoreRelativeToPar == 0 ? 'grey--text' : 'red--text'">{{selectedRound.scoreRelativeToPar == 0 ? 'E' : selectedRound.scoreRelativeToPar > 0 ? `+${selectedRound.scoreRelativeToPar}`:`${selectedRound.scoreRelativeToPar}`}}</span>
-                                                    <span class="headline font-weight-light">~{{selectedRound.thruHole}}</span>
+                                                    <span class="headline font-weight-light">~ {{selectedRound.thruHole}}</span>
                                                 </v-flex>
                                             </v-layout>
                                         </v-flex>
@@ -343,14 +343,14 @@
                         </v-layout>
                         <v-layout wrap justify-center>
                             <v-flex xs12>
-                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)">
+                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 7 : false">
                                     <v-icon>mdi-plus</v-icon>{{selectedRoundHole.RoundStrokes.length > 0 ? 'Add Another Stroke' : 'Add a Stroke'}}
                                 </v-btn>
                             </v-flex>
                         </v-layout>
                         <v-layout v-if="!rearrangeStrokesMode" wrap align-center>
                             <v-flex xs12 v-for="(roundStroke, i) in selectedRoundHole.RoundStrokes" :key="roundStroke.roundStrokeId">
-                                <round-stroke :roundStroke="roundStroke" :previousRoundStroke="selectedRoundHole.RoundStrokes[i - 1] || null" @setSelectedRoundStroke="setSelectedRoundStroke"></round-stroke>
+                                <round-stroke :roundStroke="roundStroke" :previousRoundStroke="selectedRoundHole.RoundStrokes[i - 1] || null" @setSelectedRoundStroke="setSelectedRoundStroke" @update="updateRoundStroke"></round-stroke>
                             </v-flex>
                         </v-layout>
                         <draggable v-else v-model="selectedRoundHole.RoundStrokes" handle=".handle" class="layout wrap align-center" group="roundStrokes" draggable=".draggable">
@@ -373,7 +373,7 @@
                         </draggable>
                         <v-layout wrap align-center v-if="selectedRoundHole.RoundStrokes.length > 0">
                             <v-flex xs12>
-                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)">
+                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 7 : false">
                                     <v-icon>mdi-plus</v-icon>Add Another Stroke
                                 </v-btn>
                             </v-flex>
@@ -653,6 +653,40 @@ export default {
 
         addStrokeToRoundHole(roundHole) {
             this.usersRepository.addRoundStroke(roundHole.roundHoleId, this.$store.getters.user.userId)
+                .then(() => {
+                    this.usersRepository.getActiveRounds(this.$store.getters.user.userId)
+                        .then((apiResponse) => {
+                            this.activeRounds = apiResponse.data
+
+                            const updatedRound = this.activeRounds.find(round => round.roundId === this.selectedRound.roundId);
+                            this.selectedRound = updatedRound;
+
+                            const updatedRoundHole = this.selectedRound.RoundHoles.find(roundHole => roundHole.roundHoleId === this.selectedRoundHole.roundHoleId)
+                            this.selectedRoundHole = updatedRoundHole;
+                        })
+                        .catch((apiError) => {
+                            console.error(apiError)
+                            this.snackbar.message = 'Failed to get the active rounds. Please try again later.';
+                            this.snackbar.color = "red";
+                            this.snackbar.show = true;
+                        })
+                })
+                .catch((apiError) => {
+                    console.error(apiError)
+                    if (apiError.response.status === 405) {
+                        this.snackbar.message = 'The terrain result on the last stroke of this hole must be changed if you want to add more strokes.';
+                        this.snackbar.color = "red";
+                        this.snackbar.show = true;
+                    } else {
+                        this.snackbar.message = 'Failed to add a stroke to the round hole. Please try again later.';
+                        this.snackbar.color = "red";
+                        this.snackbar.show = true;
+                    }
+                })
+        },
+
+        updateRoundStroke(payload) {
+            this.usersRepository.updateRoundStroke(payload.roundStrokeId, this.selectedRoundHole.roundHoleId, this.$store.getters.user.userId, payload)
                 .then(() => {
                     this.usersRepository.getActiveRounds(this.$store.getters.user.userId)
                         .then((apiResponse) => {

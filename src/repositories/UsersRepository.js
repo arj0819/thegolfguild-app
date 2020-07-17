@@ -33,6 +33,10 @@ class UsersRepository extends BaseRepository {
         return this.post(`/users/${userId}/round-holes/${roundHoleId}/round-strokes`, undefined, undefined, true)
     }
 
+    updateRoundStroke(roundStrokeId, roundHoleId, userId, payload) {
+        return this.post(`/users/${userId}/round-holes/${roundHoleId}/round-strokes/${roundStrokeId}`, payload, undefined, true)
+    }
+
     deleteRoundStroke(roundStrokeId, roundHoleId, userId) {
         return this.delete(`/users/${userId}/round-holes/${roundHoleId}/round-strokes/${roundStrokeId}`, undefined, true)
     }

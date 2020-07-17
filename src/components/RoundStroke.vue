@@ -24,7 +24,7 @@
                         :items="TerrainType.TYPES.COLLECTION"
                         item-text="TEXT"
                         item-value="ID"
-                        hide-details :loading="true" loader-height="4"
+                        hide-details :loading="false" loader-height="4"
                     >
                         <template v-slot:item="{item}">
                             <span class="caption">{{item.TEXT}}</span>
@@ -41,7 +41,7 @@
                         :items="TerrainType.TYPES.COLLECTION"
                         item-text="TEXT"
                         item-value="ID"
-                        hide-details :loading="true" loader-height="4"
+                        hide-details :loading="false" loader-height="4"
                     >
                         <template v-slot:item="{item}">
                             <span class="caption">{{item.TEXT}}</span>
@@ -85,7 +85,8 @@
                                     </v-flex>
                                     <v-flex shrink>
                                         <v-fade-transition>
-                                            <span class="caption" v-if="!open">{{roundStroke.strokeType?roundStroke.strokeType.TEXT:''}}</span>
+                                            <span class="caption" v-if="!open && roundStroke.strokeTypeId !== null">{{StrokeType.TYPES.COLLECTION[roundStroke.strokeTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
                                         </v-fade-transition>
                                     </v-flex>
                                 </v-layout>
@@ -95,14 +96,15 @@
                             <v-layout wrap align-center>
                                 <v-flex xs12>
                                     <v-select 
-                                        v-model="roundStroke.strokeType"
+                                        v-model="roundStroke.strokeTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Stroke Type"
                                         :items="StrokeType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -124,12 +126,20 @@
                                     </v-flex>
                                     <v-flex shrink>
                                         <v-fade-transition>
-                                            <span class="caption" v-if="!open">{{roundStroke.terrainTypeStart?roundStroke.terrainTypeStart.TEXT:''}}</span>
+                                            <span class="caption" v-if="!open && roundStroke.terrainStartTypeId !== null">{{TerrainType.TYPES.COLLECTION[roundStroke.terrainStartTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
                                         </v-fade-transition>
                                     </v-flex>
                                     <v-flex shrink>
                                         <v-fade-transition>
-                                            <span class="caption" v-if="!open">{{roundStroke.terrainTypeResult?roundStroke.terrainTypeResult.TEXT:''}}</span>
+                                            <span class="caption" v-if="!open && roundStroke.terrainIntendedTypeId !== null">{{TerrainType.TYPES.COLLECTION[roundStroke.terrainIntendedTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.terrainResultTypeId !== null">{{TerrainType.TYPES.COLLECTION[roundStroke.terrainResultTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
                                         </v-fade-transition>
                                     </v-flex>
                                 </v-layout>
@@ -139,14 +149,15 @@
                             <v-layout wrap align-center>
                                 <v-flex xs6>
                                     <v-select 
-                                        v-model="roundStroke.terrainTypeStart"
+                                        v-model="roundStroke.terrainStartTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Start"
                                         :items="TerrainType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainStartTypeId: roundStroke.terrainStartTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -158,14 +169,35 @@
                                 </v-flex>
                                 <v-flex xs6>
                                     <v-select 
-                                        v-model="roundStroke.terrainTypeResult"
+                                        v-model="roundStroke.terrainIntendedTypeId"
+                                        outlined dense color="highContrast" item-color="highContrast"
+                                        label="Intended"
+                                        :items="TerrainType.TYPES.COLLECTION"
+                                        item-text="TEXT"
+                                        item-value="ID"
+                                        return-object
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainIntendedTypeId: roundStroke.terrainIntendedTypeId.ID})"
+                                    >
+                                        <template v-slot:item="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                        <template v-slot:selection="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                    </v-select>
+                                </v-flex>
+                                <v-flex xs12>
+                                    <v-select 
+                                        v-model="roundStroke.terrainResultTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Result"
                                         :items="TerrainType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -178,7 +210,126 @@
                             </v-layout>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
-                    <v-expansion-panel>
+                    <v-expansion-panel v-if="roundStroke.strokeTypeId === 5 || roundStroke.strokeTypeId === 6 ||roundStroke.strokeTypeId === 7">
+                        <v-expansion-panel-header class="mb-n2">
+                            <template v-slot:default="{open}">
+                                <v-layout wrap align-center>
+                                    <v-flex shrink>
+                                        <span class="caption font-weight-medium">Break</span>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.breakLateralReadTypeId !== null">{{BreakLateralType.TYPES.COLLECTION[roundStroke.breakLateralReadTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.breakLateralResultTypeId !== null">{{BreakLateralType.TYPES.COLLECTION[roundStroke.breakLateralResultTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.breakVerticalReadTypeId !== null">{{BreakVerticalType.TYPES.COLLECTION[roundStroke.breakVerticalReadTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.breakVerticalResultTypeId !== null">{{BreakVerticalType.TYPES.COLLECTION[roundStroke.breakVerticalResultTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                </v-layout>
+                            </template>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <v-layout wrap align-center>
+                                <v-flex xs6>
+                                    <v-select 
+                                        v-model="roundStroke.breakLateralReadTypeId"
+                                        outlined dense color="highContrast" item-color="highContrast"
+                                        label="Lateral Read"
+                                        :items="BreakLateralType.TYPES.COLLECTION"
+                                        item-text="TEXT"
+                                        item-value="ID"
+                                        return-object
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakLateralReadTypeId: roundStroke.breakLateralReadTypeId.ID})"
+                                    >
+                                        <template v-slot:item="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                        <template v-slot:selection="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                    </v-select>
+                                </v-flex>
+                                <v-flex xs6>
+                                    <v-select 
+                                        v-model="roundStroke.breakLateralResultTypeId"
+                                        outlined dense color="highContrast" item-color="highContrast"
+                                        label="Lateral Result"
+                                        :items="BreakLateralType.TYPES.COLLECTION"
+                                        item-text="TEXT"
+                                        item-value="ID"
+                                        return-object
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakLateralResultTypeId: roundStroke.breakLateralResultTypeId.ID})"
+                                    >
+                                        <template v-slot:item="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                        <template v-slot:selection="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                    </v-select>
+                                </v-flex>
+                                <v-flex xs6>
+                                    <v-select 
+                                        v-model="roundStroke.breakVerticalReadTypeId"
+                                        outlined dense color="highContrast" item-color="highContrast"
+                                        label="Vertical Read"
+                                        :items="BreakVerticalType.TYPES.COLLECTION"
+                                        item-text="TEXT"
+                                        item-value="ID"
+                                        return-object
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakVerticalReadTypeId: roundStroke.breakVerticalReadTypeId.ID})"
+                                    >
+                                        <template v-slot:item="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                        <template v-slot:selection="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                    </v-select>
+                                </v-flex>
+                                <v-flex xs6>
+                                    <v-select 
+                                        v-model="roundStroke.breakVerticalResultTypeId"
+                                        outlined dense color="highContrast" item-color="highContrast"
+                                        label="Vertical Result"
+                                        :items="BreakVerticalType.TYPES.COLLECTION"
+                                        item-text="TEXT"
+                                        item-value="ID"
+                                        return-object
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakVerticalResultTypeId: roundStroke.breakVerticalResultTypeId.ID})"
+                                    >
+                                        <template v-slot:item="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                        <template v-slot:selection="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                    </v-select>
+                                </v-flex>
+                            </v-layout>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                    <v-expansion-panel v-else>
                         <v-expansion-panel-header class="mb-n2">
                             <template v-slot:default="{open}">
                                 <v-layout wrap align-center>
@@ -187,12 +338,14 @@
                                     </v-flex>
                                     <v-flex shrink>
                                         <v-fade-transition>
-                                            <span class="caption" v-if="!open">{{roundStroke.curveIntendedType?roundStroke.curveIntendedType.TEXT:''}}</span>
+                                            <span class="caption" v-if="!open && roundStroke.curveIntendedTypeId !== null">{{CurveType.TYPES.COLLECTION[roundStroke.curveIntendedTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
                                         </v-fade-transition>
                                     </v-flex>
                                     <v-flex shrink>
                                         <v-fade-transition>
-                                            <span class="caption" v-if="!open">{{roundStroke.curveResultType?roundStroke.curveResultType.TEXT:''}}</span>
+                                            <span class="caption" v-if="!open && roundStroke.curveResultTypeId !== null">{{CurveType.TYPES.COLLECTION[roundStroke.curveResultTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
                                         </v-fade-transition>
                                     </v-flex>
                                 </v-layout>
@@ -202,14 +355,15 @@
                             <v-layout wrap align-center>
                                 <v-flex xs6>
                                     <v-select 
-                                        v-model="roundStroke.curveIntendedType"
+                                        v-model="roundStroke.curveIntendedTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Intended"
-                                        :items="TerrainType.TYPES.COLLECTION"
+                                        :items="CurveType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, curveIntendedTypeId: roundStroke.curveIntendedTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -221,14 +375,15 @@
                                 </v-flex>
                                 <v-flex xs6>
                                     <v-select 
-                                        v-model="roundStroke.curveResultType"
+                                        v-model="roundStroke.curveResultTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Result"
-                                        :items="TerrainType.TYPES.COLLECTION"
+                                        :items="CurveType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, curveResultTypeId: roundStroke.curveResultTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -246,16 +401,106 @@
                             <template v-slot:default="{open}">
                                 <v-layout wrap align-center>
                                     <v-flex shrink>
-                                        <span class="caption font-weight-medium">Height</span>
+                                        <span class="caption font-weight-medium">Distance</span>
                                     </v-flex>
                                     <v-flex shrink>
                                         <v-fade-transition>
-                                            <span class="caption" v-if="!open">{{roundStroke.heightIntendedType?roundStroke.heightIntendedType.TEXT:''}}</span>
+                                            <span class="caption" v-if="!open && roundStroke.distanceResultTypeId !== null">{{DistanceResultType.TYPES.COLLECTION[roundStroke.distanceResultTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                </v-layout>
+                            </template>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <v-layout wrap align-center>
+                                <v-flex xs12>
+                                    <v-select 
+                                        v-model="roundStroke.distanceResultTypeId"
+                                        outlined dense color="highContrast" item-color="highContrast"
+                                        label="Result"
+                                        :items="DistanceResultType.TYPES.COLLECTION"
+                                        item-text="TEXT"
+                                        item-value="ID"
+                                        return-object
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, distanceResultTypeId: roundStroke.distanceResultTypeId.ID})"
+                                    >
+                                        <template v-slot:item="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                        <template v-slot:selection="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                    </v-select>
+                                </v-flex>
+                            </v-layout>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header class="mb-n2">
+                            <template v-slot:default="{open}">
+                                <v-layout wrap align-center>
+                                    <v-flex shrink>
+                                        <span class="caption font-weight-medium">Lateral</span>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.lateralResultTypeId !== null">{{LateralResultType.TYPES.COLLECTION[roundStroke.lateralResultTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                </v-layout>
+                            </template>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <v-layout wrap align-center>
+                                <v-flex xs12>
+                                    <v-select 
+                                        v-model="roundStroke.lateralResultTypeId"
+                                        outlined dense color="highContrast" item-color="highContrast"
+                                        label="Result"
+                                        :items="LateralResultType.TYPES.COLLECTION"
+                                        item-text="TEXT"
+                                        item-value="ID"
+                                        return-object
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, lateralResultTypeId: roundStroke.lateralResultTypeId.ID})"
+                                    >
+                                        <template v-slot:item="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                        <template v-slot:selection="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                    </v-select>
+                                </v-flex>
+                            </v-layout>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header class="mb-n2">
+                            <template v-slot:default="{open}">
+                                <v-layout wrap align-center>
+                                    <v-flex shrink>
+                                        <span class="caption font-weight-medium">Lie</span>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.lieAngleTypeId !== null">{{LieAngleType.TYPES.COLLECTION[roundStroke.lieAngleTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
                                         </v-fade-transition>
                                     </v-flex>
                                     <v-flex shrink>
                                         <v-fade-transition>
-                                            <span class="caption" v-if="!open">{{roundStroke.heightResultType?roundStroke.heightResultType.TEXT:''}}</span>
+                                            <span class="caption" v-if="!open && roundStroke.liePitchTypeId !== null">{{LiePitchType.TYPES.COLLECTION[roundStroke.liePitchTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.lieConditionTypeId !== null ">{{LieConditionType.TYPES.COLLECTION[roundStroke.lieConditionTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
                                         </v-fade-transition>
                                     </v-flex>
                                 </v-layout>
@@ -265,60 +510,15 @@
                             <v-layout wrap align-center>
                                 <v-flex xs6>
                                     <v-select 
-                                        v-model="roundStroke.heightIntendedType"
-                                        outlined dense color="highContrast" item-color="highContrast"
-                                        label="Intended"
-                                        :items="TerrainType.TYPES.COLLECTION"
-                                        item-text="TEXT"
-                                        item-value="ID"
-                                        return-object
-                                        hide-details :loading="true" loader-height="4"
-                                    >
-                                        <template v-slot:item="{item}">
-                                            <span class="caption">{{item.TEXT}}</span>
-                                        </template>
-                                        <template v-slot:selection="{item}">
-                                            <span class="caption">{{item.TEXT}}</span>
-                                        </template>
-                                    </v-select>
-                                </v-flex>
-                                <v-flex xs6>
-                                    <v-select 
-                                        v-model="roundStroke.heightResultType"
-                                        outlined dense color="highContrast" item-color="highContrast"
-                                        label="Result"
-                                        :items="TerrainType.TYPES.COLLECTION"
-                                        item-text="TEXT"
-                                        item-value="ID"
-                                        return-object
-                                        hide-details :loading="true" loader-height="4"
-                                    >
-                                        <template v-slot:item="{item}">
-                                            <span class="caption">{{item.TEXT}}</span>
-                                        </template>
-                                        <template v-slot:selection="{item}">
-                                            <span class="caption">{{item.TEXT}}</span>
-                                        </template>
-                                    </v-select>
-                                </v-flex>
-                            </v-layout>
-                        </v-expansion-panel-content>
-                    </v-expansion-panel>
-                    <v-expansion-panel>
-                        <v-expansion-panel-header class="mb-n2">
-                            <span class="caption font-weight-medium">Lie</span>
-                        </v-expansion-panel-header>
-                        <v-expansion-panel-content>
-                            <v-layout wrap align-center>
-                                <v-flex xs6>
-                                    <v-select 
+                                        v-model="roundStroke.lieAngleTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Angle"
-                                        :items="TerrainType.TYPES.COLLECTION"
+                                        :items="LieAngleType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, lieAngleTypeId: roundStroke.lieAngleTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -330,13 +530,15 @@
                                 </v-flex>
                                 <v-flex xs6>
                                     <v-select 
+                                        v-model="roundStroke.liePitchTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Pitch"
-                                        :items="TerrainType.TYPES.COLLECTION"
+                                        :items="LiePitchType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, liePitchTypeId: roundStroke.liePitchTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -346,15 +548,17 @@
                                         </template>
                                     </v-select>
                                 </v-flex>
-                                <v-flex xs6>
+                                <v-flex xs12>
                                     <v-select 
+                                        v-model="roundStroke.lieConditionTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Condition"
-                                        :items="TerrainType.TYPES.COLLECTION"
+                                        :items="LieConditionType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, lieConditionTypeId: roundStroke.lieConditionTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -369,64 +573,39 @@
                     </v-expansion-panel>
                     <v-expansion-panel>
                         <v-expansion-panel-header class="mb-n2">
-                            <span class="caption font-weight-medium">Break</span>
+                            <template v-slot:default="{open}">
+                                <v-layout wrap align-center>
+                                    <v-flex shrink>
+                                        <span class="caption font-weight-medium">Wind</span>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.windDirectionTypeId !== null">{{WindDirectionType.TYPES.COLLECTION[roundStroke.windDirectionTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.windStrengthTypeId !== null">{{WindStrengthType.TYPES.COLLECTION[roundStroke.windStrengthTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                </v-layout>
+                            </template>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
                             <v-layout wrap align-center>
                                 <v-flex xs6>
                                     <v-select 
-                                        outlined dense color="highContrast" item-color="highContrast"
-                                        label="Read"
-                                        :items="TerrainType.TYPES.COLLECTION"
-                                        item-text="TEXT"
-                                        item-value="ID"
-                                        return-object
-                                        hide-details :loading="true" loader-height="4"
-                                    >
-                                        <template v-slot:item="{item}">
-                                            <span class="caption">{{item.TEXT}}</span>
-                                        </template>
-                                        <template v-slot:selection="{item}">
-                                            <span class="caption">{{item.TEXT}}</span>
-                                        </template>
-                                    </v-select>
-                                </v-flex>
-                                <v-flex xs6>
-                                    <v-select 
-                                        outlined dense color="highContrast" item-color="highContrast"
-                                        label="Result"
-                                        :items="TerrainType.TYPES.COLLECTION"
-                                        item-text="TEXT"
-                                        item-value="ID"
-                                        return-object
-                                        hide-details :loading="true" loader-height="4"
-                                    >
-                                        <template v-slot:item="{item}">
-                                            <span class="caption">{{item.TEXT}}</span>
-                                        </template>
-                                        <template v-slot:selection="{item}">
-                                            <span class="caption">{{item.TEXT}}</span>
-                                        </template>
-                                    </v-select>
-                                </v-flex>
-                            </v-layout>
-                        </v-expansion-panel-content>
-                    </v-expansion-panel>
-                    <v-expansion-panel>
-                        <v-expansion-panel-header class="mb-n2">
-                            <span class="caption font-weight-medium">Wind</span>
-                        </v-expansion-panel-header>
-                        <v-expansion-panel-content>
-                            <v-layout wrap align-center>
-                                <v-flex xs6>
-                                    <v-select 
+                                        v-model="roundStroke.windDirectionTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Direction"
-                                        :items="TerrainType.TYPES.COLLECTION"
+                                        :items="WindDirectionType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windDirectionTypeId: roundStroke.windDirectionTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -438,13 +617,56 @@
                                 </v-flex>
                                 <v-flex xs6>
                                     <v-select 
+                                        v-model="roundStroke.windStrengthTypeId"
                                         outlined dense color="highContrast" item-color="highContrast"
                                         label="Strength"
-                                        :items="TerrainType.TYPES.COLLECTION"
+                                        :items="WindStrengthType.TYPES.COLLECTION"
                                         item-text="TEXT"
                                         item-value="ID"
                                         return-object
-                                        hide-details :loading="true" loader-height="4"
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windStrengthTypeId: roundStroke.windStrengthTypeId.ID})"
+                                    >
+                                        <template v-slot:item="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                        <template v-slot:selection="{item}">
+                                            <span class="caption">{{item.TEXT}}</span>
+                                        </template>
+                                    </v-select>
+                                </v-flex>
+                            </v-layout>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header class="mb-n2">
+                            <template v-slot:default="{open}">
+                                <v-layout wrap align-center>
+                                    <v-flex shrink>
+                                        <span class="caption font-weight-medium">Satisfaction</span>
+                                    </v-flex>
+                                    <v-flex shrink>
+                                        <v-fade-transition>
+                                            <span class="caption" v-if="!open && roundStroke.strokeSatisfactionTypeId !== null">{{StrokeSatisfactionType.TYPES.COLLECTION[roundStroke.strokeSatisfactionTypeId].TEXT}}</span>
+                                            <v-icon v-else-if="!open" small color="grey">mdi-minus</v-icon>
+                                        </v-fade-transition>
+                                    </v-flex>
+                                </v-layout>
+                            </template>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <v-layout wrap align-center>
+                                <v-flex xs12>
+                                    <v-select 
+                                        v-model="roundStroke.strokeSatisfactionTypeId"
+                                        outlined dense color="highContrast" item-color="highContrast"
+                                        label="Satisfaction"
+                                        :items="StrokeSatisfactionType.TYPES.COLLECTION"
+                                        item-text="TEXT"
+                                        item-value="ID"
+                                        return-object
+                                        hide-details :loading="false" loader-height="4"
+                                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeSatisfactionTypeId: roundStroke.strokeSatisfactionTypeId.ID})"
                                     >
                                         <template v-slot:item="{item}">
                                             <span class="caption">{{item.TEXT}}</span>
@@ -465,8 +687,19 @@
 
 
 <script>
-import TerrainType from '../models/TerrainType';
+import BreakLateralType from '../models/BreakLateralType';
+import BreakVerticalType from '../models/BreakVerticalType';
+import CurveType from '../models/CurveType';
+import DistanceResultType from '../models/DistanceResultType';
+import LateralResultType from '../models/LateralResultType';
+import LieAngleType from '../models/LieAngleType';
+import LieConditionType from '../models/LieConditionType';
+import LiePitchType from '../models/LiePitchType';
 import StrokeType from '../models/StrokeType';
+import TerrainType from '../models/TerrainType';
+import WindDirectionType from '../models/WindDirectionType';
+import WindStrengthType from '../models/WindStrengthType';
+import StrokeSatisfactionType from '../models/StrokeSatisfactionType';
 
 export default {
     name: "RoundStroke",
@@ -479,8 +712,19 @@ export default {
     },
 
     data: () => ({
-        TerrainType: TerrainType,
+        BreakLateralType: BreakLateralType,
+        BreakVerticalType: BreakVerticalType,
+        CurveType: CurveType,
+        DistanceResultType: DistanceResultType,
+        LateralResultType: LateralResultType,
+        LieAngleType: LieAngleType,
+        LieConditionType: LieConditionType,
+        LiePitchType: LiePitchType,
         StrokeType: StrokeType,
+        TerrainType: TerrainType,
+        WindDirectionType: WindDirectionType,
+        WindStrengthType: WindStrengthType,
+        StrokeSatisfactionType: StrokeSatisfactionType,
     }),
 
     watch: {
