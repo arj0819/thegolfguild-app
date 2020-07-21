@@ -20,9 +20,13 @@ export default class TerrainType {
                 this.terrainTypeId = TerrainTypes.TEEBOX.ID
                 this.terrainType = TerrainTypes.TEEBOX.TEXT
                 break;
-            case TerrainTypes.FAIRWAY.ID :
-                this.terrainTypeId = TerrainTypes.FAIRWAY.ID
-                this.terrainType = TerrainTypes.FAIRWAY.TEXT
+            case TerrainTypes.FAIRWAY_CORRECT.ID :
+                this.terrainTypeId = TerrainTypes.FAIRWAY_CORRECT.ID
+                this.terrainType = TerrainTypes.FAIRWAY_CORRECT.TEXT
+                break;
+            case TerrainTypes.FAIRWAY_INCORRECT.ID :
+                this.terrainTypeId = TerrainTypes.FAIRWAY_INCORRECT.ID
+                this.terrainType = TerrainTypes.FAIRWAY_INCORRECT.TEXT
                 break;
             case TerrainTypes.ROUGH_FIRST_CUT.ID :
                 this.terrainTypeId = TerrainTypes.ROUGH_FIRST_CUT.ID

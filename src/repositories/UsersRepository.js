@@ -37,6 +37,14 @@ class UsersRepository extends BaseRepository {
         return this.post(`/users/${userId}/round-holes/${roundHoleId}/round-strokes/${roundStrokeId}`, payload, undefined, true)
     }
 
+    getGolfBag(userId) {
+        return this.get(`/users/${userId}/golf-bag`, undefined, true)
+    }
+
+    updateGolfBag(userId, payload) {
+        return this.post(`/users/${userId}/golf-bag`, payload, undefined, true)
+    }
+
     deleteRoundStroke(roundStrokeId, roundHoleId, userId) {
         return this.delete(`/users/${userId}/round-holes/${roundHoleId}/round-strokes/${roundStrokeId}`, undefined, true)
     }

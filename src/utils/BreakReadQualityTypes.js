@@ -1,19 +1,15 @@
 module.exports = Object.freeze({
-    IDEAL: {
-        ID: 0,
-        TEXT: 'Ideal'
-    },
     GOOD: {
-        ID: 1,
+        ID: 0,
         TEXT: 'Good'
+    },
+    AVERAGE: {
+        ID: 1,
+        TEXT: 'Average'
     },
     BAD: {
         ID: 2,
         TEXT: 'Bad'
-    },
-    TERRIBLE: {
-        ID: 3,
-        TEXT: 'Terrible'
     },
     UNSPECIFIED: {
         ID: -1,
@@ -22,19 +18,15 @@ module.exports = Object.freeze({
     COLLECTION: [
         {
             ID: 0,
-            TEXT: 'Ideal'
+            TEXT: 'Good'
         },
         {
             ID: 1,
-            TEXT: 'Good'
+            TEXT: 'Average'
         },
         {
             ID: 2,
             TEXT: 'Bad'
-        },
-        {
-            ID: 3,
-            TEXT: 'Terrible'
         },
     ],
 })

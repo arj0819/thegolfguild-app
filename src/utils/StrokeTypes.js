@@ -1,19 +1,19 @@
 module.exports = Object.freeze({
-    APPROACH: {
-        ID: 0,
-        TEXT: 'Approach'
-    },
     CHIP: {
-        ID: 1,
+        ID: 0,
         TEXT: 'Chip'
     },
     FLOP: {
-        ID: 2,
+        ID: 1,
         TEXT: 'Flop'
     },
-    LAY_UP: {
+    FULL: {
+        ID: 2,
+        TEXT: 'Full'
+    },
+    PITCH: {
         ID: 3,
-        TEXT: 'Lay-Up'
+        TEXT: 'Pitch'
     },
     PUNCH: {
         ID: 4,
@@ -31,10 +31,6 @@ module.exports = Object.freeze({
         ID: 7,
         TEXT: 'Putt (Short)'
     },
-    TEESHOT: {
-        ID: 8,
-        TEXT: 'Teeshot'
-    },
     UNSPECIFIED: {
         ID: -1,
         TEXT: 'Unspecified'
@@ -42,19 +38,19 @@ module.exports = Object.freeze({
     COLLECTION: [
         {
             ID: 0,
-            TEXT: 'Approach'
-        },
-        {
-            ID: 1,
             TEXT: 'Chip'
         },
         {
-            ID: 2,
+            ID: 1,
             TEXT: 'Flop'
         },
         {
+            ID: 2,
+            TEXT: 'Full'
+        },
+        {
             ID: 3,
-            TEXT: 'Lay-Up'
+            TEXT: 'Pitch'
         },
         {
             ID: 4,
@@ -71,10 +67,6 @@ module.exports = Object.freeze({
         {
             ID: 7,
             TEXT: 'Putt (Short)'
-        },
-        {
-            ID: 8,
-            TEXT: 'Teeshot'
-        },
+        }
     ],
 })

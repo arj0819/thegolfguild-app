@@ -336,21 +336,21 @@
                                 </v-btn>
                             </v-flex>
                             <v-flex xs6>
-                                <v-btn block large outlined @click="goToPreviousRoundHole" :disabled="selectedRound.RoundHoles.indexOf(selectedRoundHole) >= 17">
+                                <v-btn block large outlined @click="goToPreviousRoundHole" :disabled="selectedRound.RoundHoles.indexOf(selectedRoundHole) >= (selectedRound.RoundHoles.length - 1)">
                                     Next Hole<v-icon>mdi-chevron-right</v-icon>
                                 </v-btn>
                             </v-flex>
                         </v-layout>
                         <v-layout wrap justify-center>
                             <v-flex xs12>
-                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 7 : false">
+                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 8 : false">
                                     <v-icon>mdi-plus</v-icon>{{selectedRoundHole.RoundStrokes.length > 0 ? 'Add Another Stroke' : 'Add a Stroke'}}
                                 </v-btn>
                             </v-flex>
                         </v-layout>
                         <v-layout v-if="!rearrangeStrokesMode" wrap align-center>
                             <v-flex xs12 v-for="(roundStroke, i) in selectedRoundHole.RoundStrokes" :key="roundStroke.roundStrokeId">
-                                <round-stroke :roundStroke="roundStroke" :previousRoundStroke="selectedRoundHole.RoundStrokes[i - 1] || null" @setSelectedRoundStroke="setSelectedRoundStroke" @update="updateRoundStroke"></round-stroke>
+                                <round-stroke :roundStroke="roundStroke" :roundHoleNumber="selectedRoundHole.number" :previousRoundStroke="selectedRoundHole.RoundStrokes[i - 1] || null" @setSelectedRoundStroke="setSelectedRoundStroke" @update="updateRoundStroke"></round-stroke>
                             </v-flex>
                         </v-layout>
                         <draggable v-else v-model="selectedRoundHole.RoundStrokes" handle=".handle" class="layout wrap align-center" group="roundStrokes" draggable=".draggable">
@@ -373,7 +373,7 @@
                         </draggable>
                         <v-layout wrap align-center v-if="selectedRoundHole.RoundStrokes.length > 0">
                             <v-flex xs12>
-                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 7 : false">
+                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 8 : false">
                                     <v-icon>mdi-plus</v-icon>Add Another Stroke
                                 </v-btn>
                             </v-flex>
@@ -385,7 +385,7 @@
                                 </v-btn>
                             </v-flex>
                             <v-flex xs6>
-                                <v-btn block large outlined @click="goToPreviousRoundHole" :disabled="selectedRound.RoundHoles.indexOf(selectedRoundHole) >= 17">
+                                <v-btn block large outlined @click="goToPreviousRoundHole" :disabled="selectedRound.RoundHoles.indexOf(selectedRoundHole) >= (selectedRound.RoundHoles.length - 1)">
                                     Next Hole<v-icon>mdi-chevron-right</v-icon>
                                 </v-btn>
                             </v-flex>
@@ -686,6 +686,7 @@ export default {
         },
 
         updateRoundStroke(payload) {
+            console.log(payload)
             this.usersRepository.updateRoundStroke(payload.roundStrokeId, this.selectedRoundHole.roundHoleId, this.$store.getters.user.userId, payload)
                 .then(() => {
                     this.usersRepository.getActiveRounds(this.$store.getters.user.userId)
@@ -890,6 +891,17 @@ export default {
             })
             .catch(() => {
                 this.snackbar.message = 'Failed to get the list of golf courses. Please try again later.';
+                this.snackbar.color = "red";
+                this.snackbar.show = true;
+            })
+
+        this.usersRepository.getGolfBag(this.$store.getters.user.userId)
+            .then((apiResponse) => {
+                this.$store.state.golfBag = apiResponse.data;
+            })
+            .catch((apiError) => {
+                console.error(apiError);
+                this.snackbar.message = 'Failed to get your golf bag. Please try again later.';
                 this.snackbar.color = "red";
                 this.snackbar.show = true;
             })

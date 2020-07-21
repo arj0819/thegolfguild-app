@@ -16,10 +16,6 @@ export default class StrokeType {
 
     constructor(strokeTypeId) {
         switch(strokeTypeId) {
-            case StrokeTypes.APPROACH.ID :
-                this.strokeTypeId = StrokeTypes.APPROACH.ID
-                this.strokeType = StrokeTypes.APPROACH.TEXT
-                break;
             case StrokeTypes.CHIP.ID :
                 this.strokeTypeId = StrokeTypes.CHIP.ID
                 this.strokeType = StrokeTypes.CHIP.TEXT
@@ -28,9 +24,13 @@ export default class StrokeType {
                 this.strokeTypeId = StrokeTypes.FLOP.ID
                 this.strokeType = StrokeTypes.FLOP.TEXT
                 break;
-            case StrokeTypes.LAY_UP.ID :
-                this.strokeTypeId = StrokeTypes.LAY_UP.ID
-                this.strokeType = StrokeTypes.LAY_UP.TEXT
+            case StrokeTypes.FULL.ID :
+                this.strokeTypeId = StrokeTypes.FULL.ID
+                this.strokeType = StrokeTypes.FULL.TEXT
+                break;
+            case StrokeTypes.PITCH.ID :
+                this.strokeTypeId = StrokeTypes.PITCH.ID
+                this.strokeType = StrokeTypes.PITCH.TEXT
                 break;
             case StrokeTypes.PUNCH.ID :
                 this.strokeTypeId = StrokeTypes.PUNCH.ID
@@ -47,10 +47,6 @@ export default class StrokeType {
             case StrokeTypes.PUTT_SHORT.ID :
                 this.strokeTypeId = StrokeTypes.PUTT_SHORT.ID
                 this.strokeType = StrokeTypes.PUTT_SHORT.TEXT
-                break;
-            case StrokeTypes.TEESHOT.ID :
-                this.strokeTypeId = StrokeTypes.TEESHOT.ID
-                this.strokeType = StrokeTypes.TEESHOT.TEXT
                 break;
             default :
                 this.strokeTypeId = StrokeTypes.UNSPECIFIED.ID

@@ -8,7 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         isAuthenticated: false,
-        user: new User()
+        user: new User(),
+        golfBag: [],
     },
     mutations: {
         setUser(state, userAuthToken) {

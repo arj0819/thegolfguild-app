@@ -3,56 +3,60 @@ module.exports = Object.freeze({
         ID: 0,
         TEXT: 'Desert'
     },
-    FAIRWAY: {
+    FAIRWAY_CORRECT: {
         ID: 1,
-        TEXT: 'Fairway'
+        TEXT: 'Fairway (Correct)'
+    },
+    FAIRWAY_INCORRECT: {
+        ID: 2,
+        TEXT: 'Fairway (Incorrect)'
     },
     FAIRWAY_BUNKER: {
-        ID: 2,
+        ID: 3,
         TEXT: 'Fairway Bunker'
     },
     FESCUE: {
-        ID: 3,
+        ID: 4,
         TEXT: 'Fescue'
     },
     FRINGE: {
-        ID: 4,
+        ID: 5,
         TEXT: 'Fringe'
     },
     GREEN: {
-        ID: 5,
+        ID: 6,
         TEXT: 'Green'
     },
     GREENSIDE_BUNKER: {
-        ID: 6,
+        ID: 7,
         TEXT: 'Greenside Bunker'
     },
     HOLE: {
-        ID: 7,
+        ID: 8,
         TEXT: 'Hole'
     },
     LATERAL_HAZARD: {
-        ID: 8,
+        ID: 9,
         TEXT: 'Lateral Hazard'
     },
     OUT_OF_BOUNDS: {
-        ID: 9,
+        ID: 10,
         TEXT: 'Out of Bounds'
     },
     ROUGH_FIRST_CUT: {
-        ID: 10,
+        ID: 11,
         TEXT: 'Rough (1st Cut)'
     },
     ROUGH_SECOND_CUT: {
-        ID: 11,
+        ID: 12,
         TEXT: 'Rough (2nd Cut)'
     },
     STANDARD_HAZARD: {
-        ID: 12,
+        ID: 13,
         TEXT: 'Standard Hazard'
     },
     TEEBOX: {
-        ID: 13,
+        ID: 14,
         TEXT: 'Teebox'
     },
     UNSPECIFIED: {
@@ -66,54 +70,58 @@ module.exports = Object.freeze({
         },
         {
             ID: 1,
-            TEXT: 'Fairway'
+            TEXT: 'Fairway (Correct)'
         },
         {
             ID: 2,
-            TEXT: 'Fairway Bunker'
+            TEXT: 'Fairway (Incorrect)'
         },
         {
             ID: 3,
-            TEXT: 'Fescue'
+            TEXT: 'Fairway Bunker'
         },
         {
             ID: 4,
-            TEXT: 'Fringe'
+            TEXT: 'Fescue'
         },
         {
             ID: 5,
-            TEXT: 'Green'
+            TEXT: 'Fringe'
         },
         {
             ID: 6,
-            TEXT: 'Greenside Bunker'
+            TEXT: 'Green'
         },
         {
             ID: 7,
-            TEXT: 'Hole'
+            TEXT: 'Greenside Bunker'
         },
         {
             ID: 8,
-            TEXT: 'Lateral Hazard'
+            TEXT: 'Hole'
         },
         {
             ID: 9,
-            TEXT: 'Out of Bounds'
+            TEXT: 'Lateral Hazard'
         },
         {
             ID: 10,
-            TEXT: 'Rough (1st Cut)'
+            TEXT: 'Out of Bounds'
         },
         {
             ID: 11,
-            TEXT: 'Rough (2nd Cut)'
+            TEXT: 'Rough (1st Cut)'
         },
         {
             ID: 12,
-            TEXT: 'Standard Hazard'
+            TEXT: 'Rough (2nd Cut)'
         },
         {
             ID: 13,
+            TEXT: 'Standard Hazard'
+        },
+        {
+            ID: 14,
             TEXT: 'Teebox'
         },
     ],
