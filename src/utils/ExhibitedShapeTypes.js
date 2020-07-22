@@ -1,7 +1,7 @@
 module.exports = Object.freeze({
     HOOK: {
         ID: 0,
-        TEXT: 'Hook'
+        TEXT: 'Pull'
     },
     DRAW: {
         ID: 1,
@@ -17,7 +17,7 @@ module.exports = Object.freeze({
     },
     SLICE: {
         ID: 4,
-        TEXT: 'Slice'
+        TEXT: 'Push'
     },
     UNSPECIFIED: {
         ID: -1,
@@ -26,7 +26,7 @@ module.exports = Object.freeze({
     COLLECTION: [
         {
             ID: 0,
-            TEXT: 'Hook'
+            TEXT: 'Pull'
         },
         {
             ID: 1,
@@ -42,7 +42,7 @@ module.exports = Object.freeze({
         },
         {
             ID: 4,
-            TEXT: 'Slice'
+            TEXT: 'Push'
         },
     ],
 })

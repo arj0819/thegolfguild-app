@@ -31,6 +31,10 @@ module.exports = Object.freeze({
         ID: 7,
         TEXT: 'Putt (Short)'
     },
+    PENALTY_DROP: {
+        ID: 8,
+        TEXT: 'Penalty/Drop'
+    },
     UNSPECIFIED: {
         ID: -1,
         TEXT: 'Unspecified'
@@ -67,6 +71,10 @@ module.exports = Object.freeze({
         {
             ID: 7,
             TEXT: 'Putt (Short)'
+        },
+        {
+            ID: 8,
+            TEXT: 'Penalty/Drop'
         }
     ],
 })

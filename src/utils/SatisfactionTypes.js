@@ -1,23 +1,23 @@
 module.exports = Object.freeze({
-    FANTASTIC: {
+    TERRIBLE: {
         ID: 0,
-        TEXT: 'Fantastic'
+        TEXT: 'Terrible'
     },
-    GOOD: {
+    BAD: {
         ID: 1,
-        TEXT: 'Good'
+        TEXT: 'Bad'
     },
     AVERAGE: {
         ID: 2,
         TEXT: 'Average'
     },
-    BAD: {
+    GOOD: {
         ID: 3,
-        TEXT: 'Bad'
+        TEXT: 'Good'
     },
-    TERRIBLE: {
+    FANTASTIC: {
         ID: 4,
-        TEXT: 'Terrible'
+        TEXT: 'Fantastic'
     },
     UNSPECIFIED: {
         ID: -1,
@@ -26,11 +26,11 @@ module.exports = Object.freeze({
     COLLECTION: [
         {
             ID: 0,
-            TEXT: 'Fantastic'
+            TEXT: 'Terrible'
         },
         {
             ID: 1,
-            TEXT: 'Good'
+            TEXT: 'Bad'
         },
         {
             ID: 2,
@@ -38,11 +38,11 @@ module.exports = Object.freeze({
         },
         {
             ID: 3,
-            TEXT: 'Bad'
+            TEXT: 'Good'
         },
         {
             ID: 4,
-            TEXT: 'Terrible'
+            TEXT: 'Fantastic'
         },
     ],
 })

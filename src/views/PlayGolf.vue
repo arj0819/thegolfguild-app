@@ -177,7 +177,7 @@
                                             </span>
                                         </template>
                                         <template v-slot:item.strokes="{ item }">
-                                            <span class="headline font-weight-black" tile flat :class="`${getRoundStrokeBackgroundColor(selectedRound.thruHole, item.number, item.par, item.strokes)}--text`">
+                                            <span class="headline font-weight-black" tile flat :class="`${getRoundStrokeBackgroundColor(item, item.number, item.par, item.strokes)}--text`">
                                                 {{item.strokes !== 0? item.strokes:''}}
                                             </span>
                                         </template>
@@ -242,7 +242,7 @@
                                             </span>
                                         </template>
                                         <template v-slot:item.strokes="{ item }">
-                                            <span class="headline font-weight-black" tile flat :class="`${getRoundStrokeBackgroundColor(selectedRound.thruHole, item.number, item.par, item.strokes)}--text`">
+                                            <span class="headline font-weight-black" tile flat :class="`${getRoundStrokeBackgroundColor(item, item.number, item.par, item.strokes)}--text`">
                                                 {{item.strokes !== 0? item.strokes:''}}
                                             </span>
                                         </template>
@@ -321,7 +321,7 @@
                                             </span>
                                         </template>
                                         <template v-slot:item.strokes="{ item }">
-                                            <span class="headline font-weight-black" tile flat :class="`${getRoundStrokeBackgroundColor(selectedRound.thruHole, item.number, item.par, item.strokes)}--text`">
+                                            <span class="headline font-weight-black" tile flat :class="`${getRoundStrokeBackgroundColor(item, item.number, item.par, item.strokes)}--text`">
                                                 {{item.strokes !== 0? item.strokes:''}}
                                             </span>
                                         </template>
@@ -350,7 +350,7 @@
                         </v-layout>
                         <v-layout v-if="!rearrangeStrokesMode" wrap align-center>
                             <v-flex xs12 v-for="(roundStroke, i) in selectedRoundHole.RoundStrokes" :key="roundStroke.roundStrokeId">
-                                <round-stroke :roundStroke="roundStroke" :roundHoleNumber="selectedRoundHole.number" :previousRoundStroke="selectedRoundHole.RoundStrokes[i - 1] || null" @setSelectedRoundStroke="setSelectedRoundStroke" @update="updateRoundStroke"></round-stroke>
+                                <round-stroke :roundStroke="roundStroke" :roundHoleNumber="selectedRoundHole.number" :roundHolePar="selectedRoundHole.par" :previousRoundStroke="selectedRoundHole.RoundStrokes[i - 1] || null" @setSelectedRoundStroke="setSelectedRoundStroke" @update="updateRoundStroke"></round-stroke>
                             </v-flex>
                         </v-layout>
                         <draggable v-else v-model="selectedRoundHole.RoundStrokes" handle=".handle" class="layout wrap align-center" group="roundStrokes" draggable=".draggable">
@@ -797,12 +797,12 @@ export default {
                 })
         },
 
-        getRoundStrokeBackgroundColor(thruHole, currentHoleNumber, par, strokes) {
-            if (strokes == 0) {
-                return ''
+        getRoundStrokeBackgroundColor(hole, currentHoleNumber, par, strokes) {
+            if (strokes === 0) {
+                return 'grey'
             }
-            if (thruHole < currentHoleNumber) {
-                return ''
+            if (hole.RoundStrokes[hole.RoundStrokes.length - 1].terrainResultTypeId !== 8) {
+                return 'grey'
             }
 
             var toPar = strokes - par;
@@ -812,7 +812,7 @@ export default {
             } else if (toPar == -1) {
                 return 'red'
             } else if (toPar == 0) {
-                return 'grey'
+                return ''
             } else if (toPar == 1) {
                 return 'blue'
             } else if (toPar >= 2) {

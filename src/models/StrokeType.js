@@ -48,6 +48,10 @@ export default class StrokeType {
                 this.strokeTypeId = StrokeTypes.PUTT_SHORT.ID
                 this.strokeType = StrokeTypes.PUTT_SHORT.TEXT
                 break;
+            case StrokeTypes.PENALTY_DROP.ID :
+                this.strokeTypeId = StrokeTypes.PENALTY_DROP.ID
+                this.strokeType = StrokeTypes.PENALTY_DROP.TEXT
+                break;
             default :
                 this.strokeTypeId = StrokeTypes.UNSPECIFIED.ID
                 this.strokeType = StrokeTypes.UNSPECIFIED.TEXT

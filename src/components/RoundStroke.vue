@@ -3,7 +3,7 @@
         <v-container>
             <v-layout wrap align-center>
                 <v-flex grow class="pt-0 pb-0">
-                    <span class="title">Stroke {{roundStroke.number}} - Hole {{roundHoleNumber}}</span>
+                    <span class="title">Hole {{roundHoleNumber}} &ndash; Par {{roundHolePar}} &ndash; Stroke {{roundStroke.number}}</span>   
                 </v-flex>
                 <v-flex shrink class="pt-0 pb-0 pr-0">
                     <v-btn icon class="pa-0" @click.stop="$emit('setSelectedRoundStroke', roundStroke)">
@@ -783,36 +783,36 @@
             </v-layout>
             <v-layout wrap align-center justify-center v-if="!(roundStroke.strokeTypeId === 5 || roundStroke.strokeTypeId === 6 ||roundStroke.strokeTypeId === 7)">
                 <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
-                    <v-item-group  :value="roundStroke.intendedShapeTypeId">
+                    <v-item-group  :value="roundStroke.exhibitedShapeTypeId">
                             <v-layout wrap align-center>
                                 <v-flex xs12 class="text-center pa-0">
-                                    <span class="caption">Intended Shape</span>
+                                    <span class="caption">Exhibited Shape</span>
                                 </v-flex>
                             </v-layout>
                             <v-layout wrap align-center>
                                 <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, intendedShapeTypeId: 0})">
-                                        <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(30deg)">mdi-undo</v-icon></v-card>
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 0})">
+                                        <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(-45deg)">mdi-arrow-up-bold</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                                 <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, intendedShapeTypeId: 1})">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 1})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(90deg)">mdi-undo</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                                 <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, intendedShapeTypeId: 2})">
+                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 2})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-up-bold</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                                 <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, intendedShapeTypeId: 3})">
+                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 3})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(-90deg)">mdi-redo</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                                 <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, intendedShapeTypeId: 4})">
-                                        <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(-30deg)">mdi-redo</v-icon></v-card>
+                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 4})">
+                                        <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(45deg)">mdi-arrow-up-bold</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                             </v-layout>
@@ -820,20 +820,20 @@
                 </v-flex>
                 <v-spacer/>
                 <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
-                    <v-item-group  :value="roundStroke.shapeAchievedTypeId">
+                    <v-item-group  :value="roundStroke.shapeIntendedTypeId">
                             <v-layout wrap align-center>
                                 <v-flex xs12 class="text-center pa-0">
-                                    <span class="caption">Shape Hit?</span>
+                                    <span class="caption">Shape Intentional?</span>
                                 </v-flex>
                             </v-layout>
                             <v-layout wrap align-center justify-center>
                                 <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, shapeAchievedTypeId: 0})">
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, shapeIntendedTypeId: 0})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-down</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                                 <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, shapeAchievedTypeId: 1})">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, shapeIntendedTypeId: 1})">
                                         <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-up</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
@@ -1499,7 +1499,7 @@
 
 <script>
 import BreakReadQualityType from '../models/BreakReadQualityType';
-import IntendedShapeType from '../models/IntendedShapeType';
+import ExhibitedShapeType from '../models/ExhibitedShapeType';
 import AccuracyType from '../models/AccuracyType';
 import LieQualityType from '../models/LieQualityType';
 import StrokeType from '../models/StrokeType';
@@ -1513,6 +1513,7 @@ export default {
     props: {
         compact: Boolean,
         roundHoleNumber: Number,
+        roundHolePar: Number,
         roundStroke: Object,
         previousRoundStroke: Object,
         golfBag: Array,
@@ -1520,7 +1521,7 @@ export default {
 
     data: () => ({
         BreakReadQualityType: BreakReadQualityType,
-        IntendedShapeType: IntendedShapeType,
+        ExhibitedShapeType: ExhibitedShapeType,
         AccuracyType: AccuracyType,
         LieQualityType: LieQualityType,
         StrokeType: StrokeType,
