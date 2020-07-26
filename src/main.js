@@ -15,6 +15,18 @@ Vue.prototype.$lodash = lodash
 
 Vue.config.productionTip = false;
 
+Vue.filter('percent', function (value) {
+  if (typeof value !== "number") {
+      return value;
+  }
+  var formatter = new Intl.NumberFormat('en-US', {
+      style: 'percent',
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1
+  });
+  return formatter.format(value);
+});
+
 new Vue({
   router,
   store,

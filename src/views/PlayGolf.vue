@@ -415,6 +415,299 @@
                     </v-flex>
                 </v-layout>
             </v-container>
+            <v-container grid-list-lg fluid v-else-if="selectedRound && currentView == 2" key="4" class="pt-1">
+                <v-layout wrap justify-center>
+                    <v-flex xs12 sm6 md4>
+                        <v-layout wrap align-center>
+                            <v-flex shrink class="pr-0 pb-0">
+                                <v-btn icon small outlined @click="setSelectedRound(null)">
+                                    <v-icon>mdi-chevron-left</v-icon>
+                                </v-btn>
+                            </v-flex>
+                            <v-flex grow class="pl-0 pb-0">
+                                <v-container>
+                                    <v-layout wrap>
+                                        <v-flex xs12>
+                                            <v-layout wrap align-center>
+                                                <v-flex shrink>
+                                                    <span class="subtitle-2 font-weight-bold">{{selectedRound.golfCourseName}}</span>
+                                                </v-flex>
+                                                <v-flex shrink class="pr-0 pl-1">
+                                                    <tee-box-icon class="mr-n2" :primaryColor="selectedRound.primaryColor" :secondaryColor="selectedRound.secondaryColor"></tee-box-icon>
+                                                </v-flex>
+                                                <v-spacer/>
+                                                <v-flex shrink class="pr-0 text-right">
+                                                    <span class="headline font-weight-bold pr-1" :class="selectedRound.scoreRelativeToPar > 0 ? 'blue--text' : selectedRound.scoreRelativeToPar == 0 ? 'grey--text' : 'red--text'">{{selectedRound.scoreRelativeToPar == 0 ? 'E' : selectedRound.scoreRelativeToPar > 0 ? `+${selectedRound.scoreRelativeToPar}`:`${selectedRound.scoreRelativeToPar}`}}</span>
+                                                    <span class="headline font-weight-light">~ {{selectedRound.thruHole}}</span>
+                                                </v-flex>
+                                            </v-layout>
+                                        </v-flex>
+                                    </v-layout>
+                                </v-container>
+                            </v-flex>
+                        </v-layout>
+                        <v-layout wrap align-center>
+                            <v-flex xs12 class="pt-0 pb-0">
+                                Fairways
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-card outlined>
+                                    <v-data-table  mobile-breakpoint="0"
+                                        :headers="roundFairwayStatHeaders"
+                                        :items="[fairwayStats] || []"
+                                        hide-default-footer disable-pagination
+                                        disable-sort dense
+                                    >
+                                        <template v-slot:item.totalParFourFairwaysHit="{ item }">
+                                            <span class="title font-weight-medium" tile flat>
+                                                {{item.totalParFourFairwaysHit}} / {{item.totalParFourFairways}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.totalParFiveFairwaysHit="{ item }">
+                                            <span class="title font-weight-medium" tile flat>
+                                                {{item.totalParFiveFairwaysHit}} / {{item.totalParFiveFairways}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.totalFairwaysHit="{ item }">
+                                            <span class="title font-weight-black" tile flat>
+                                                {{item.totalFairwaysHit}} / {{item.totalFairways}}
+                                            </span>
+                                        </template>
+                                    </v-data-table>
+                                </v-card>
+                            </v-flex>
+                            <v-flex xs12 class="pt-0 pb-0">
+                                Greens
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-card outlined>
+                                    <v-data-table  mobile-breakpoint="0"
+                                        :headers="roundGreenStatHeaders"
+                                        :items="[greenStats] || []"
+                                        hide-default-footer disable-pagination
+                                        disable-sort dense
+                                    >
+                                        <template v-slot:item.totalParThreeGreensHit="{ item }">
+                                            <span class="title font-weight-medium" tile flat>
+                                                {{item.totalParThreeGreensHit}} / {{item.totalParThreeGreens}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.totalParFourGreensHit="{ item }">
+                                            <span class="title font-weight-medium" tile flat>
+                                                {{item.totalParFourGreensHit}} / {{item.totalParFourGreens}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.totalParFiveGreensHit="{ item }">
+                                            <span class="title font-weight-medium" tile flat>
+                                                {{item.totalParFiveGreensHit}} / {{item.totalParFiveGreens}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.totalGreensHit="{ item }">
+                                            <span class="title font-weight-black" tile flat>
+                                                {{item.totalGreensHit}} / {{item.totalGreens}}
+                                            </span>
+                                        </template>
+                                    </v-data-table>
+                                </v-card>
+                            </v-flex>
+                            <v-flex xs12 class="pt-0 pb-0">
+                                Putting
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-card outlined>
+                                    <v-data-table  mobile-breakpoint="0"
+                                        :headers="roundPuttStatHeaders"
+                                        :items="[puttStats] || []"
+                                        hide-default-footer disable-pagination
+                                        disable-sort dense
+                                    >
+                                        <template v-slot:item.totalZeroPutts="{ item }">
+                                            <span class="title font-weight-medium" tile flat>
+                                                {{item.totalZeroPutts}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.totalOnePutts="{ item }">
+                                            <span class="title font-weight-medium" tile flat>
+                                                {{item.totalOnePutts}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.totalTwoPutts="{ item }">
+                                            <span class="title font-weight-medium" tile flat>
+                                                {{item.totalTwoPutts}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.totalThreeOrMorePutts="{ item }">
+                                            <span class="title font-weight-medium" tile flat>
+                                                {{item.totalThreeOrMorePutts}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.totalPutts="{ item }">
+                                            <span class="title font-weight-black" tile flat>
+                                                {{item.totalPutts}}
+                                            </span>
+                                        </template>
+                                    </v-data-table>
+                                </v-card>
+                            </v-flex>
+                            <v-flex xs6>
+                                Scramble
+                            </v-flex>
+                            <v-flex xs6 class="text-right">
+                                {{scrambleStats.scrambleSuccesses}} / {{scrambleStats.scrambleChances}}, {{scrambleStats.scramblePercent | percent}}
+                            </v-flex>
+                            <v-flex xs6>
+                                Recovery
+                            </v-flex>
+                            <v-flex xs6 class="text-right">
+                                {{recoveryStats.recoverySuccesses}} / {{recoveryStats.recoveryChances}}, {{recoveryStats.recoveryPercent | percent}}
+                            </v-flex>
+                            <v-flex xs6>
+                                Consistency
+                            </v-flex>
+                            <v-flex xs6 class="text-right">
+                                {{consistencyStats.consistencySuccesses}} / {{consistencyStats.consistencyChances}}, {{consistencyStats.consistencyPercent | percent}}
+                            </v-flex>
+                            <v-flex xs6>
+                                Teeshot Success
+                            </v-flex>
+                            <v-flex xs6 class="text-right">
+                                {{teeshotSuccessStats.teeshotSuccesses}} / {{teeshotSuccessStats.teeshotChances}}, {{teeshotSuccessStats.teeshotSuccessesPercent | percent}}
+                            </v-flex>
+                            <v-flex xs6>
+                                Teeshot Mistakes
+                            </v-flex>
+                            <v-flex xs6 class="text-right">
+                                {{teeshotMistakesStats.teeshotMistakes}} / {{teeshotMistakesStats.teeshotChances}}, {{teeshotMistakesStats.teeshotMistakesPercent | percent}}
+                            </v-flex>
+                            <!-- <v-flex xs12>
+                                <v-card outlined v-if="getSelectedRoundOutRoundHoles().length > 0" :class="getSelectedRoundInRoundHoles().length > 0?'eighteenHoleCard-frontNine':''">
+                                    <v-data-table  mobile-breakpoint="0"
+                                        :headers="roundScorecardHeaders"
+                                        :items="getSelectedRoundOutRoundHoles()"
+                                        hide-default-footer disable-pagination
+                                        disable-sort @click:row="setSelectedRoundHole"
+                                        class="clickable-rows"
+                                    >
+                                        <template v-slot:body.append="{ items }">
+                                            <tr>
+                                                <td colspan="2" class="headline font-weight-medium text-center v-data-table__divider">
+                                                    OUT
+                                                </td>
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
+                                                    {{selectedRound.outYards}}
+                                                </td>
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
+                                                    {{selectedRound.outPar}}
+                                                </td>
+                                                <td class="headline font-weight-black text-center">
+                                                    {{getOutScore(items)}}
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template v-slot:item.number="{ item }">
+                                            <span class="headline font-weight-medium" tile flat>
+                                                {{item.number}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.handicap="{ item }">
+                                            <span class="headline font-weight-medium" tile flat>
+                                                {{item.handicap}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.yardage="{ item }">
+                                            <span class="headline font-weight-medium" tile flat>
+                                                {{item.yardage}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.par="{ item }">
+                                            <span class="headline font-weight-medium" tile flat>
+                                                {{item.par}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.strokes="{ item }">
+                                            <span class="headline font-weight-black" tile flat :class="`${getRoundStrokeBackgroundColor(item, item.number, item.par, item.strokes)}--text`">
+                                                {{item.strokes !== 0? item.strokes:''}}
+                                            </span>
+                                        </template>
+                                    </v-data-table>
+                                </v-card>
+                                <v-card outlined v-if="getSelectedRoundInRoundHoles().length > 0" :class="getSelectedRoundOutRoundHoles().length > 0?'eighteenHoleCard-backNine':''">
+                                    <v-data-table  mobile-breakpoint="0"
+                                        :headers="roundScorecardHeaders" calculate-widths
+                                        :items="getSelectedRoundInRoundHoles()"
+                                        hide-default-footer disable-pagination
+                                        disable-sort @click:row="setSelectedRoundHole"
+                                        class="clickable-rows"
+                                    >
+                                        <template v-slot:body.append="{items}">
+                                            <tr>
+                                                <td colspan="2" class="headline font-weight-medium text-center v-data-table__divider">
+                                                    IN
+                                                </td>
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
+                                                    {{selectedRound.inYards}}
+                                                </td>
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
+                                                    {{selectedRound.inPar}}
+                                                </td>
+                                                <td class="headline font-weight-black text-center">
+                                                    {{getInScore(items)}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="headline font-weight-medium text-center v-data-table__divider">
+                                                    TOTAL
+                                                </td>
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
+                                                    {{selectedRound.totalYards}}
+                                                </td>
+                                                <td class="headline font-weight-medium text-center v-data-table__divider">
+                                                    {{selectedRound.totalPar}}
+                                                </td>
+                                                <td class="headline font-weight-black text-center">
+                                                    {{getTotalScore()}}
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template v-slot:item.number="{ item }">
+                                            <span class="headline font-weight-medium" tile flat>
+                                                {{item.number}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.handicap="{ item }">
+                                            <span class="headline font-weight-medium" tile flat>
+                                                {{item.handicap}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.yardage="{ item }">
+                                            <span class="headline font-weight-medium" tile flat>
+                                                {{item.yardage}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.par="{ item }">
+                                            <span class="headline font-weight-medium" tile flat>
+                                                {{item.par}}
+                                            </span>
+                                        </template>
+                                        <template v-slot:item.strokes="{ item }">
+                                            <span class="headline font-weight-black" tile flat :class="`${getRoundStrokeBackgroundColor(item, item.number, item.par, item.strokes)}--text`">
+                                                {{item.strokes !== 0? item.strokes:''}}
+                                            </span>
+                                        </template>
+                                    </v-data-table>
+                                </v-card>
+                            </v-flex> -->
+                        </v-layout>
+                        <!-- <v-layout wrap align-center>
+                            <v-flex xs12>
+                                <v-btn block outlined color="red" @click.stop="endRoundDialog = true">
+                                    End Round
+                                </v-btn>
+                            </v-flex>
+                        </v-layout> -->
+                    </v-flex>
+                </v-layout>
+            </v-container>
         </v-fade-transition>
         <v-snackbar v-model="snackbar.show" :timeout="8000" bottom :color="snackbar.color">
             {{snackbar.message}}
@@ -497,6 +790,9 @@
                                 <v-tab>
                                     Hole View 
                                 </v-tab>
+                                <v-tab>
+                                    Stats View 
+                                </v-tab>
                             </v-tabs>
                         </v-flex>
                     </v-layout>
@@ -515,6 +811,9 @@ import { RoundsRepository } from '../repositories';
 
 import TeeBoxIcon from '../components/TeeBoxIcon';
 import RoundStroke from '../components/RoundStroke';
+import TerrainType from '../models/TerrainType';
+import StrokeType from '../models/StrokeType';
+import LieQualityType from '../models/LieQualityType';
 
 export default {
     name: "PlayGolf",
@@ -602,6 +901,190 @@ export default {
             },
         ],
 
+        roundStatcardHeaders: [
+            // text: string
+            // value: string
+            // align?: 'start' | 'center' | 'end'
+            // sortable?: boolean
+            // filterable?: boolean
+            // divider?: boolean
+            // class?: string | string[]
+            // width?: string | number
+            // filter?: (value: any, search: string, item: any) => boolean
+            // sort?: (a: any, b: any) => number
+            {
+                text: "Hole",
+                value: "number",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'subtitle-1 font-weight-bold'
+            },
+            {
+                text: "FIR",
+                value: "handicap",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'subtitle-1 font-weight-bold'
+            },
+            {
+                text: "GIR",
+                value: "yardage",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'subtitle-1 font-weight-bold'
+            },
+            {
+                text: "Putts",
+                value: "par",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'subtitle-1 font-weight-bold'
+            },
+            {
+                text: "Pen",
+                value: "strokes",
+                align: "center",
+                width:'0',
+                class:'subtitle-1 font-weight-bold'
+            },
+        ],
+
+        roundPuttStatHeaders: [
+            // text: string
+            // value: string
+            // align?: 'start' | 'center' | 'end'
+            // sortable?: boolean
+            // filterable?: boolean
+            // divider?: boolean
+            // class?: string | string[]
+            // width?: string | number
+            // filter?: (value: any, search: string, item: any) => boolean
+            // sort?: (a: any, b: any) => number
+            {
+                text: "0-Putts",
+                value: "totalZeroPutts",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+            {
+                text: "1-Putts",
+                value: "totalOnePutts",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+            {
+                text: "2-Putts",
+                value: "totalTwoPutts",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+            {
+                text: ">= 3-Putts",
+                value: "totalThreeOrMorePutts",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+            {
+                text: "Total",
+                value: "totalPutts",
+                align: "center",
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+        ],
+
+        roundGreenStatHeaders: [
+            // text: string
+            // value: string
+            // align?: 'start' | 'center' | 'end'
+            // sortable?: boolean
+            // filterable?: boolean
+            // divider?: boolean
+            // class?: string | string[]
+            // width?: string | number
+            // filter?: (value: any, search: string, item: any) => boolean
+            // sort?: (a: any, b: any) => number
+            {
+                text: "Par 3s",
+                value: "totalParThreeGreensHit",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+            {
+                text: "Par 4s",
+                value: "totalParFourGreensHit",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+            {
+                text: "Par 5s",
+                value: "totalParFiveGreensHit",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+            {
+                text: "Total",
+                value: "totalGreensHit",
+                align: "center",
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+        ],
+
+        roundFairwayStatHeaders: [
+            // text: string
+            // value: string
+            // align?: 'start' | 'center' | 'end'
+            // sortable?: boolean
+            // filterable?: boolean
+            // divider?: boolean
+            // class?: string | string[]
+            // width?: string | number
+            // filter?: (value: any, search: string, item: any) => boolean
+            // sort?: (a: any, b: any) => number
+            {
+                text: "Par 4s",
+                value: "totalParFourFairwaysHit",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+            {
+                text: "Par 5s",
+                value: "totalParFiveFairwaysHit",
+                align: "center",
+                divider: true,
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+            {
+                text: "Total",
+                value: "totalFairwaysHit",
+                align: "center",
+                width:'0',
+                class:'caption font-weight-medium'
+            },
+        ],
+
         newRoundMode: false,
 
         snackbar: {
@@ -615,7 +1098,343 @@ export default {
     }),
 
     computed: {
-
+        fairwayStats() {
+            var totalParFourFairways = 0;
+            var totalParFourFairwaysHit = 0;
+            var totalParFiveFairways = 0;
+            var totalParFiveFairwaysHit = 0;
+            if (this.selectedRound) {
+                for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
+                    if (this.selectedRound.RoundHoles[i].RoundStrokes.length >= 1 && this.selectedRound.RoundHoles[i].par === 4) {
+                        totalParFourFairways++;
+                        if (this.selectedRound.RoundHoles[i].RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.FAIRWAY_CORRECT.ID) {
+                            totalParFourFairwaysHit++;
+                        }
+                    } else if (this.selectedRound.RoundHoles[i].RoundStrokes.length >= 1 && this.selectedRound.RoundHoles[i].par === 5) {
+                        totalParFiveFairways++;
+                        if (this.selectedRound.RoundHoles[i].RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.FAIRWAY_CORRECT.ID) {
+                            totalParFiveFairwaysHit++;
+                        }
+                    }
+                }
+            }
+            return {
+                totalParFourFairways: totalParFourFairways,
+                totalParFourFairwaysHit: totalParFourFairwaysHit,
+                totalParFiveFairways: totalParFiveFairways,
+                totalParFiveFairwaysHit: totalParFiveFairwaysHit,
+                totalFairways: totalParFourFairways + totalParFiveFairways,
+                totalFairwaysHit: totalParFourFairwaysHit + totalParFiveFairwaysHit
+            };
+        },
+        greenStats() {
+            var totalParThreeGreens = 0;
+            var totalParThreeGreensHit = 0;
+            var totalParFourGreens = 0;
+            var totalParFourGreensHit = 0;
+            var totalParFiveGreens = 0;
+            var totalParFiveGreensHit = 0;
+            if (this.selectedRound) {
+                for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
+                    if (this.selectedRound.RoundHoles[i].par === 3) {
+                        if (this.selectedRound.RoundHoles[i].RoundStrokes.length >= 1) {
+                            totalParThreeGreens++;
+                            if (this.selectedRound.RoundHoles[i].RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.GREEN.ID) {
+                                totalParThreeGreensHit++;
+                            }
+                        }
+                    } else if (this.selectedRound.RoundHoles[i].par === 4) {
+                        if (this.selectedRound.RoundHoles[i].RoundStrokes.length >= 2) {
+                            totalParFourGreens++;
+                            if (this.selectedRound.RoundHoles[i].RoundStrokes[1].terrainResultTypeId === TerrainType.TYPES.GREEN.ID) {
+                                totalParFourGreensHit++;
+                            }
+                        }
+                    } else if (this.selectedRound.RoundHoles[i].par === 5) {
+                        if (this.selectedRound.RoundHoles[i].RoundStrokes.length >= 3) {
+                            totalParFiveGreens++;
+                            if (this.selectedRound.RoundHoles[i].RoundStrokes[2].terrainResultTypeId === TerrainType.TYPES.GREEN.ID) {
+                                totalParFiveGreensHit++;
+                            }
+                        }
+                    }
+                }
+            }
+            return {
+                totalParThreeGreens: totalParThreeGreens,
+                totalParThreeGreensHit: totalParThreeGreensHit,
+                totalParFourGreens: totalParFourGreens,
+                totalParFourGreensHit: totalParFourGreensHit,
+                totalParFiveGreens: totalParFiveGreens,
+                totalParFiveGreensHit: totalParFiveGreensHit,
+                totalGreens: totalParThreeGreens + totalParFourGreens + totalParFiveGreens,
+                totalGreensHit: totalParThreeGreensHit + totalParFourGreensHit + totalParFiveGreensHit
+            };
+        },
+        puttStats() {
+            var totalZeroPutts = 0;
+            var totalOnePutts = 0;
+            var totalTwoPutts = 0;
+            var totalThreeOrMorePutts = 0;
+            var totalPutts = 0;
+            if (this.selectedRound) {
+                for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
+                    var currentRoundHole = this.selectedRound.RoundHoles[i];
+                    if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1]) {
+                        if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                            var currentHoleTotalPutts = 0;
+                            for (var j = 0; j < currentRoundHole.RoundStrokes.length; j++) {
+                                var currentRoundStroke = currentRoundHole.RoundStrokes[j];
+                                if (currentRoundStroke.terrainStartTypeId === TerrainType.TYPES.GREEN.ID && 
+                                        (currentRoundStroke.strokeTypeId === StrokeType.TYPES.PUTT_LONG.ID || 
+                                        currentRoundStroke.strokeTypeId === StrokeType.TYPES.PUTT_MEDIUM.ID || 
+                                        currentRoundStroke.strokeTypeId === StrokeType.TYPES.PUTT_SHORT.ID)
+                                ) {
+                                    currentHoleTotalPutts++;
+                                }
+                            }
+                            if (currentHoleTotalPutts === 0) {
+                                totalZeroPutts++;
+                            } else if (currentHoleTotalPutts === 1) {
+                                totalOnePutts++;
+                            } else if (currentHoleTotalPutts === 2) {
+                                totalTwoPutts++;
+                            } else if (currentHoleTotalPutts >= 3) {
+                                totalThreeOrMorePutts++;
+                            }
+                            totalPutts += currentHoleTotalPutts;
+                        }
+                    }
+                }
+            }
+            return {
+                totalZeroPutts: totalZeroPutts,
+                totalOnePutts: totalOnePutts,
+                totalTwoPutts: totalTwoPutts,
+                totalThreeOrMorePutts: totalThreeOrMorePutts,
+                totalPutts: totalPutts
+            };
+        },
+        scrambleStats() {
+            var scrambleChances = 0;
+            var scrambleSuccesses = 0;
+            if (this.selectedRound) {
+                for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
+                    var currentRoundHole = this.selectedRound.RoundHoles[i];
+                    if (currentRoundHole.par === 3) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId !== TerrainType.TYPES.GREEN.ID) {
+                                scrambleChances++;
+                                if (currentRoundHole.RoundStrokes.length <= currentRoundHole.par && currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                    scrambleSuccesses++;
+                                }
+                            }
+                        }
+                    } else if (currentRoundHole.par === 4) {
+                        if (currentRoundHole.RoundStrokes.length >= 2) {
+                            if (currentRoundHole.RoundStrokes[1].terrainResultTypeId !== TerrainType.TYPES.GREEN.ID) {
+                                scrambleChances++;
+                                if (currentRoundHole.RoundStrokes.length <= currentRoundHole.par && currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                    scrambleSuccesses++;
+                                }
+                            }
+                        }
+                    } else if (currentRoundHole.par === 5) {
+                        if (currentRoundHole.RoundStrokes.length >= 3) {
+                            if (currentRoundHole.RoundStrokes[2].terrainResultTypeId !== TerrainType.TYPES.GREEN.ID) {
+                                scrambleChances++;
+                                if (currentRoundHole.RoundStrokes.length <= currentRoundHole.par && currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                    scrambleSuccesses++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return {
+                scrambleChances: scrambleChances,
+                scrambleSuccesses: scrambleSuccesses,
+                scramblePercent: scrambleSuccesses / scrambleChances
+            };
+        },
+        consistencyStats() {
+            var consistencyChances = 0;
+            var consistencySuccesses = 0;
+            if (this.selectedRound) {
+                for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
+                    var currentRoundHole = this.selectedRound.RoundHoles[i];
+                    if (currentRoundHole.par === 3) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            consistencyChances++;
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.GREEN.ID) {
+                                consistencySuccesses++;
+                            }
+                        }
+                    } else if (currentRoundHole.par === 4) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            consistencyChances++;
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.FAIRWAY_CORRECT.ID) {
+                                consistencySuccesses++;
+                            }
+                        }
+                        if (currentRoundHole.RoundStrokes.length >= 2) {
+                            consistencyChances++;
+                            if (currentRoundHole.RoundStrokes[1].terrainResultTypeId === TerrainType.TYPES.GREEN.ID) {
+                                consistencySuccesses++;
+                            }
+                        }
+                    } else if (currentRoundHole.par === 5) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            consistencyChances++;
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.FAIRWAY_CORRECT.ID) {
+                                consistencySuccesses++;
+                            }
+                        }
+                        if (currentRoundHole.RoundStrokes.length >= 3) {
+                            consistencyChances++;
+                            if (currentRoundHole.RoundStrokes[2].terrainResultTypeId === TerrainType.TYPES.GREEN.ID) {
+                                consistencySuccesses++;
+                            }
+                        }
+                    }
+                }
+            }
+            return {
+                consistencyChances: consistencyChances,
+                consistencySuccesses: consistencySuccesses,
+                consistencyPercent: consistencySuccesses / consistencyChances
+            };
+        },
+        recoveryStats() {
+            var recoveryChances = 0;
+            var recoverySuccesses = 0;
+            if (this.selectedRound) {
+                for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
+                    var currentRoundHole = this.selectedRound.RoundHoles[i];
+                    if (currentRoundHole.par === 3) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId !== TerrainType.TYPES.GREEN.ID) {
+                                recoveryChances++;
+                                if (currentRoundHole.RoundStrokes.length <= currentRoundHole.par && currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                    recoverySuccesses++;
+                                }
+                            }
+                        }
+                    } else if (currentRoundHole.par === 4) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId !== TerrainType.TYPES.FAIRWAY_CORRECT.ID) {
+                                recoveryChances++;
+                                if (currentRoundHole.RoundStrokes.length <= currentRoundHole.par && currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                    recoverySuccesses++;
+                                }
+                            }
+                        }
+                        if (currentRoundHole.RoundStrokes.length >= 2) {
+                            if (currentRoundHole.RoundStrokes[1].terrainResultTypeId !== TerrainType.TYPES.GREEN.ID) {
+                                recoveryChances++;
+                                if (currentRoundHole.RoundStrokes.length <= currentRoundHole.par && currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                    recoverySuccesses++;
+                                }
+                            }
+                        }
+                    } else if (currentRoundHole.par === 5) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId !== TerrainType.TYPES.FAIRWAY_CORRECT.ID) {
+                                recoveryChances++;
+                                if (currentRoundHole.RoundStrokes.length <= currentRoundHole.par && currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                    recoverySuccesses++;
+                                }
+                            }
+                        }
+                        if (currentRoundHole.RoundStrokes.length >= 3) {
+                            if (currentRoundHole.RoundStrokes[2].terrainResultTypeId !== TerrainType.TYPES.GREEN.ID) {
+                                recoveryChances++;
+                                if (currentRoundHole.RoundStrokes.length <= currentRoundHole.par && currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                    recoverySuccesses++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return {
+                recoveryChances: recoveryChances,
+                recoverySuccesses: recoverySuccesses,
+                recoveryPercent: recoverySuccesses / recoveryChances
+            };
+        },
+        teeshotMistakesStats() {
+            var teeshotMistakes = 0;
+            var teeshotChances = 0;
+            if (this.selectedRound) {
+                for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
+                    var currentRoundHole = this.selectedRound.RoundHoles[i];
+                    if (currentRoundHole.par === 3) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            teeshotChances++;
+                            if (!(currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.GREEN.ID || currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.FRINGE.ID)) {
+                                teeshotMistakes++;
+                            }
+                        }
+                    } else if (currentRoundHole.par === 4 || currentRoundHole.par === 5) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            teeshotChances++;
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId !== TerrainType.TYPES.FAIRWAY_CORRECT.ID) {
+                                if (currentRoundHole.RoundStrokes.length >= 2) {
+                                    if (currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.ROUGH_SECOND_CUT.ID) {
+                                        if (currentRoundHole.RoundStrokes[1].lieQualityTypeId < LieQualityType.TYPES.GOOD.ID) {
+                                            teeshotMistakes++;
+                                        }
+                                    } else {
+                                        teeshotMistakes++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return {
+                teeshotChances: teeshotChances,
+                teeshotMistakes: teeshotMistakes,
+                teeshotMistakesPercent: teeshotMistakes / teeshotChances
+            };
+        },
+        teeshotSuccessStats() {
+            var teeshotSuccesses = 0;
+            var teeshotChances = 0;
+            if (this.selectedRound) {
+                for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
+                    var currentRoundHole = this.selectedRound.RoundHoles[i];
+                    if (currentRoundHole.par === 3) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            teeshotChances++;
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.GREEN.ID || currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.FRINGE.ID) {
+                                teeshotSuccesses++;
+                            }
+                        }
+                    } else if (currentRoundHole.par === 4 || currentRoundHole.par === 5) {
+                        if (currentRoundHole.RoundStrokes.length >= 1) {
+                            teeshotChances++;
+                            if (currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.FAIRWAY_CORRECT.ID) {
+                                teeshotSuccesses++;
+                            } else if (currentRoundHole.RoundStrokes[0].terrainResultTypeId === TerrainType.TYPES.ROUGH_SECOND_CUT.ID) {
+                                if (currentRoundHole.RoundStrokes.length >= 2) {
+                                    if (currentRoundHole.RoundStrokes[1].lieQualityTypeId === LieQualityType.TYPES.GOOD.ID) {
+                                        teeshotSuccesses++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return {
+                teeshotChances: teeshotChances,
+                teeshotSuccesses: teeshotSuccesses,
+                teeshotSuccessesPercent: teeshotSuccesses / teeshotChances
+            };
+        }
     },
 
     methods: {

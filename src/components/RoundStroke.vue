@@ -13,533 +13,622 @@
             </v-layout>
             <v-layout wrap align-center>
                 <v-flex xs12 class="pl-3 pr-3 pt-2 pb-3">
-            <v-item-group :value="roundStroke.clubId" @change.self="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: $event})">
-                <v-layout wrap align-center>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(0)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">D</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(1)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">2w</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(2)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">3w</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(3)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">4w</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(4)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">5w</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(5)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">7w</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(6)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">9w</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(7)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">1h</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(8)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">2h</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(9)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">3h</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(10)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">4h</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(11)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">5h</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(12)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">6h</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(13)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">7h</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(14)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">8h</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(15)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">9h</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(16)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">1i</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(17)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">2i</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(18)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">3i</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(19)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">4i</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(20)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">5i</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(21)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">6i</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(22)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">7i</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(23)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">8i</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(24)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">9i</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(25)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">Pw</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(26)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">Gw</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(27)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">Sw</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(28)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">Lw</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(29)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">46</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(30)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">48</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(31)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">50</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(32)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">52</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(33)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">54</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(34)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">56</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(35)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">58</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(36)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">60</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(37)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">62</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(38)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">64</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                    <v-flex shrink v-if="$store.state.golfBag.includes(39)" class="pa-1">
-                        <v-item v-slot:default="{ active, toggle }">
-                            <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
-                                <v-container fill-height class="pa-0">
-                                <v-layout wrap class="text-center" align-center>
-                                    <v-flex xs12 class="pa-0">
-                                        <span class="title text-center font-weight-bold">Pu</span>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                            </v-card>
-                        </v-item>
-                    </v-flex>
-                </v-layout>
-            </v-item-group>
+                    <v-item-group :value="roundStroke.clubId">
+                        <v-layout wrap align-center>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(0)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 0 ? null : 0})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">D</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(1)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 1 ? null : 1})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">2w</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(2)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 2 ? null : 2})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">3w</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(3)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 3 ? null : 3})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">4w</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(4)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 4 ? null : 4})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">5w</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(5)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="5" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 5 ? null : 5})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">7w</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(6)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="6" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 6 ? null : 6})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">9w</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(7)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="7" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 7 ? null : 7})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">1h</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(8)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="8" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 8 ? null : 8})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">2h</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(9)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="9" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 9 ? null : 9})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">3h</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(10)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="10" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 10 ? null : 10})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">4h</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(11)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="11" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 11 ? null : 11})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">5h</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(12)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="12" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 12 ? null : 12})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">6h</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(13)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="13" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 13 ? null : 13})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">7h</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(14)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="14" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 14 ? null : 14})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">8h</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(15)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="15" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 15 ? null : 15})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">9h</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(16)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="16" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 16 ? null : 16})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">1i</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(17)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="17" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 17 ? null : 17})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">2i</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(18)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="18" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 18 ? null : 18})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">3i</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(19)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="19" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 19 ? null : 19})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">4i</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(20)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="20" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 20 ? null : 20})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">5i</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(21)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="21" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 21 ? null : 21})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">6i</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(22)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="22" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 22 ? null : 22})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">7i</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(23)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="23" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 23 ? null : 23})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">8i</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(24)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="24" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 24 ? null : 24})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">9i</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(25)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="25" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 25 ? null : 25})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">Pw</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(26)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="26" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 26 ? null : 26})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">Gw</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(27)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="27" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 27 ? null : 27})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">Sw</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(28)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="28" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 28 ? null : 28})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">Lw</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(29)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="29" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 29 ? null : 29})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">46</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(30)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="30" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 30 ? null : 30})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">48</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(31)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="31" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 31 ? null : 31})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">50</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(32)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="32" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 32 ? null : 32})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">52</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(33)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="33" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 33 ? null : 33})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">54</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(34)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="34" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 34 ? null : 34})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">56</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(35)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="35" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 35 ? null : 35})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">58</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(36)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="36" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 36 ? null : 36})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">60</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(37)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="37" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 37 ? null : 37})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">62</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(38)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="38" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 38 ? null : 38})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">64</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink v-show="$store.state.golfBag.includes(39)" class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="39" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 39 ? null : 39})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
+                                        <v-container fill-height class="pa-0">
+                                        <v-layout wrap class="text-center" align-center>
+                                            <v-flex xs12 class="pa-0">
+                                                <span class="title text-center font-weight-bold">Pu</span>
+                                            </v-flex>
+                                        </v-layout>
+                                        </v-container>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                        </v-layout>
+                    </v-item-group>
                 </v-flex>
             </v-layout>
             <v-layout wrap align-center>
+                <v-flex xs12 class="pl-3 pr-3 pt-2 pb-3">
+                    <v-item-group :value="roundStroke.strokeTypeId">
+                        <v-layout wrap align-center>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId !== 0 && roundStroke.clubId !== 39 && roundStroke.clubId !== null">
+                                <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 0 ? null : 0})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                            <span class="caption text-center font-weight-bold">Chip</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId >= 25 && roundStroke.clubId <= 38">
+                                <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 1 ? null : 1})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Flop</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId !== 39 && roundStroke.clubId !== null">
+                                <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 2 ? null : 2})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Full</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId >= 25 && roundStroke.clubId <= 38">
+                                <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 3 ? null : 3})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Pitch</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId !== 39 && roundStroke.clubId !== null">
+                                <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 4 ? null : 4})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Punch</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId === 39">
+                                <v-item v-slot:default="{ active, toggle }" :value="5" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 5 ? null : 5})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Putt (L)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId === 39">
+                                <v-item v-slot:default="{ active, toggle }" :value="6" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 6 ? null : 6})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Putt (M)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId === 39">
+                                <v-item v-slot:default="{ active, toggle }" :value="7" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 7 ? null : 7})">
+                                    <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Putt (S)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1">
+                                <v-item v-slot:default="{ active, toggle }" :value="8" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 8 ? null : 8})">
+                                    <v-card outlined :color="active ? 'red' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Penalty</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                        </v-layout>
+                    </v-item-group>
+                </v-flex>
+            </v-layout>
+            <!-- <v-layout wrap align-center>
                 <v-flex xs12>
                     <v-select 
                         v-model="roundStroke.strokeTypeId"
@@ -560,7 +649,7 @@
                         </template>
                     </v-select>
                 </v-flex>
-            </v-layout>
+            </v-layout> -->
             <v-layout wrap align-center>
                 <v-flex xs6>
                     <v-select 
@@ -758,7 +847,7 @@
                     <v-item-group  :value="roundStroke.contactQualityTypeId">
                             <v-layout wrap align-center>
                                 <v-flex xs12 class="text-center pa-0">
-                                    <span class="caption">Contact Quality</span>
+                                    <span class="caption">Strike Quality</span>
                                 </v-flex>
                             </v-layout>
                             <v-layout wrap align-center>
