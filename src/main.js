@@ -7,8 +7,10 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import moment from 'moment';
 import lodash from 'lodash';
+import VueApexCharts from 'vue-apexcharts'
 
 Vue.use(VueAxios, axios);
+Vue.component('apexchart', VueApexCharts);
 
 Vue.prototype.moment = moment
 Vue.prototype.$lodash = lodash
