@@ -1434,46 +1434,48 @@ export default {
             if (this.selectedRound) {
                 for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
                     var currentRoundHole = this.selectedRound.RoundHoles[i];
-                    if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1]) {
-                        if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
-                            var currentHoleTotalPutts = 0;
-                            for (var j = 0; j < currentRoundHole.RoundStrokes.length; j++) {
-                                var currentRoundStroke = currentRoundHole.RoundStrokes[j];
-                                var currentRoundStrokeTypeId = currentRoundHole.RoundStrokes[j].strokeTypeId;
-                                if (currentRoundStroke.terrainStartTypeId === TerrainType.TYPES.GREEN.ID && 
-                                        (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_LONG.ID || 
-                                        currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_MEDIUM.ID || 
-                                        currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_SHORT.ID)
-                                ) {
-                                    currentHoleTotalPutts++;
-                                    if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_LONG.ID) {
-                                        totalLongPuttsAttempted++;
-                                    } else if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_MEDIUM.ID) {
-                                        totalMediumPuttsAttempted++;
-                                    } else if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_SHORT.ID) {
-                                        totalShortPuttsAttempted++;
+                    if (currentRoundHole.RoundStrokes.length > 0) {
+                        if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1]) {
+                            if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                var currentHoleTotalPutts = 0;
+                                for (var j = 0; j < currentRoundHole.RoundStrokes.length; j++) {
+                                    var currentRoundStroke = currentRoundHole.RoundStrokes[j];
+                                    var currentRoundStrokeTypeId = currentRoundHole.RoundStrokes[j].strokeTypeId;
+                                    if (currentRoundStroke.terrainStartTypeId === TerrainType.TYPES.GREEN.ID && 
+                                            (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_LONG.ID || 
+                                            currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_MEDIUM.ID || 
+                                            currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_SHORT.ID)
+                                    ) {
+                                        currentHoleTotalPutts++;
+                                        if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_LONG.ID) {
+                                            totalLongPuttsAttempted++;
+                                        } else if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_MEDIUM.ID) {
+                                            totalMediumPuttsAttempted++;
+                                        } else if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_SHORT.ID) {
+                                            totalShortPuttsAttempted++;
+                                        }
+                                    }
+                                    if (currentRoundStroke.terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                        if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_LONG.ID) {
+                                            totalLongPuttsMade++;
+                                        } else if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_MEDIUM.ID) {
+                                            totalMediumPuttsMade++;
+                                        } else if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_SHORT.ID) {
+                                            totalShortPuttsMade++;
+                                        }
                                     }
                                 }
-                                if (currentRoundStroke.terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
-                                    if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_LONG.ID) {
-                                        totalLongPuttsMade++;
-                                    } else if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_MEDIUM.ID) {
-                                        totalMediumPuttsMade++;
-                                    } else if (currentRoundStrokeTypeId === StrokeType.TYPES.PUTT_SHORT.ID) {
-                                        totalShortPuttsMade++;
-                                    }
+                                if (currentHoleTotalPutts === 0) {
+                                    totalZeroPutts++;
+                                } else if (currentHoleTotalPutts === 1) {
+                                    totalOnePutts++;
+                                } else if (currentHoleTotalPutts === 2) {
+                                    totalTwoPutts++;
+                                } else if (currentHoleTotalPutts >= 3) {
+                                    totalThreeOrMorePutts++;
                                 }
+                                totalPutts += currentHoleTotalPutts;
                             }
-                            if (currentHoleTotalPutts === 0) {
-                                totalZeroPutts++;
-                            } else if (currentHoleTotalPutts === 1) {
-                                totalOnePutts++;
-                            } else if (currentHoleTotalPutts === 2) {
-                                totalTwoPutts++;
-                            } else if (currentHoleTotalPutts >= 3) {
-                                totalThreeOrMorePutts++;
-                            }
-                            totalPutts += currentHoleTotalPutts;
                         }
                     }
                 }
@@ -1558,20 +1560,22 @@ export default {
             if (this.selectedRound) {
                 for (var i = 0; i < this.selectedRound.RoundHoles.length; i++) {
                     var currentRoundHole = this.selectedRound.RoundHoles[i];
-                    if (currentRoundHole.par === 3) {
-                        if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
-                            totalParThreeScoreToPar += (currentRoundHole.RoundStrokes.length - currentRoundHole.par);
+                    if (currentRoundHole.RoundStrokes.length > 0) {
+                        if (currentRoundHole.par === 3) {
+                            if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                totalParThreeScoreToPar += (currentRoundHole.RoundStrokes.length - currentRoundHole.par);
+                            }
+                        } else if (currentRoundHole.par === 4) {
+                            if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                totalParFourScoreToPar += (currentRoundHole.RoundStrokes.length - currentRoundHole.par);
+                            }
+                        } else if (currentRoundHole.par === 5) {
+                            if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
+                                totalParFiveScoreToPar += (currentRoundHole.RoundStrokes.length - currentRoundHole.par);
+                            }
                         }
-                    } else if (currentRoundHole.par === 4) {
-                        if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
-                            totalParFourScoreToPar += (currentRoundHole.RoundStrokes.length - currentRoundHole.par);
-                        }
-                    } else if (currentRoundHole.par === 5) {
-                        if (currentRoundHole.RoundStrokes[currentRoundHole.RoundStrokes.length - 1].terrainResultTypeId === TerrainType.TYPES.HOLE.ID) {
-                            totalParFiveScoreToPar += (currentRoundHole.RoundStrokes.length - currentRoundHole.par);
-                        }
+                        cumulativeScoreToParSeries.push((totalParThreeScoreToPar + totalParFourScoreToPar + totalParFiveScoreToPar));
                     }
-                    cumulativeScoreToParSeries.push((totalParThreeScoreToPar + totalParFourScoreToPar + totalParFiveScoreToPar));
                 }
             }
             var totalScoreToPar = totalParThreeScoreToPar + totalParFourScoreToPar + totalParFiveScoreToPar;
