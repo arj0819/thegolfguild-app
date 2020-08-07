@@ -16,29 +16,29 @@ export default class ExhibitedShapeType {
 
     constructor(exhibitedShapeTypeId) {
         switch(exhibitedShapeTypeId) {
-            case ExhibitedShapeType.HOOK.ID :
-                this.exhibitedShapeTypeId = ExhibitedShapeType.HOOK.ID
-                this.exhibitedShapeType = ExhibitedShapeType.HOOK.TEXT
+            case ExhibitedShapeTypes.PULL.ID :
+                this.exhibitedShapeTypeId = ExhibitedShapeTypes.PULL.ID
+                this.exhibitedShapeType = ExhibitedShapeTypes.PULL.TEXT
                 break;
-            case ExhibitedShapeType.DRAW.ID :
-                this.exhibitedShapeTypeId = ExhibitedShapeType.DRAW.ID
-                this.exhibitedShapeType = ExhibitedShapeType.DRAW.TEXT
+            case ExhibitedShapeTypes.DRAW.ID :
+                this.exhibitedShapeTypeId = ExhibitedShapeTypes.DRAW.ID
+                this.exhibitedShapeType = ExhibitedShapeTypes.DRAW.TEXT
                 break;
-            case ExhibitedShapeType.STRAIGHT.ID :
-                this.exhibitedShapeTypeId = ExhibitedShapeType.STRAIGHT.ID
-                this.exhibitedShapeType = ExhibitedShapeType.STRAIGHT.TEXT
+            case ExhibitedShapeTypes.STRAIGHT.ID :
+                this.exhibitedShapeTypeId = ExhibitedShapeTypes.STRAIGHT.ID
+                this.exhibitedShapeType = ExhibitedShapeTypes.STRAIGHT.TEXT
                 break;
-            case ExhibitedShapeType.FADE.ID :
-                this.exhibitedShapeTypeId = ExhibitedShapeType.FADE.ID
-                this.exhibitedShapeType = ExhibitedShapeType.FADE.TEXT
+            case ExhibitedShapeTypes.FADE.ID :
+                this.exhibitedShapeTypeId = ExhibitedShapeTypes.FADE.ID
+                this.exhibitedShapeType = ExhibitedShapeTypes.FADE.TEXT
                 break;
-            case ExhibitedShapeType.SLICE.ID :
-                this.exhibitedShapeTypeId = ExhibitedShapeType.SLICE.ID
-                this.exhibitedShapeType = ExhibitedShapeType.SLICE.TEXT
+            case ExhibitedShapeTypes.PUSH.ID :
+                this.exhibitedShapeTypeId = ExhibitedShapeTypes.PUSH.ID
+                this.exhibitedShapeType = ExhibitedShapeTypes.PUSH.TEXT
                 break;
             default :
-                this.exhibitedShapeTypeId = ExhibitedShapeType.UNSPECIFIED.ID
-                this.exhibitedShapeType = ExhibitedShapeType.UNSPECIFIED.TEXT
+                this.exhibitedShapeTypeId = ExhibitedShapeTypes.UNSPECIFIED.ID
+                this.exhibitedShapeType = ExhibitedShapeTypes.UNSPECIFIED.TEXT
                 break;
         }
     }

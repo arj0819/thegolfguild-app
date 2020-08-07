@@ -64,9 +64,9 @@ export default class TerrainType {
                 this.terrainTypeId = TerrainTypes.OUT_OF_BOUNDS.ID
                 this.terrainType = TerrainTypes.OUT_OF_BOUNDS.TEXT
                 break;
-            case TerrainTypes.FESCUE.ID :
-                this.terrainTypeId = TerrainTypes.FESCUE.ID
-                this.terrainType = TerrainTypes.FESCUE.TEXT
+            case TerrainTypes.WORSE_THAN_ROUGH.ID :
+                this.terrainTypeId = TerrainTypes.WORSE_THAN_ROUGH.ID
+                this.terrainType = TerrainTypes.WORSE_THAN_ROUGH.TEXT
                 break;
             case TerrainTypes.DESERT.ID :
                 this.terrainTypeId = TerrainTypes.DESERT.ID

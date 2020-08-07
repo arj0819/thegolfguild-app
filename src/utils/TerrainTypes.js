@@ -1,8 +1,4 @@
 module.exports = Object.freeze({
-    DESERT: {
-        ID: 0,
-        TEXT: 'Desert'
-    },
     FAIRWAY_CORRECT: {
         ID: 1,
         TEXT: 'Fairway (Correct)'
@@ -15,9 +11,9 @@ module.exports = Object.freeze({
         ID: 3,
         TEXT: 'Fairway Bunker'
     },
-    FESCUE: {
+    WORSE_THAN_ROUGH: {
         ID: 4,
-        TEXT: 'Fescue'
+        TEXT: 'Worse than Rough'
     },
     FRINGE: {
         ID: 5,
@@ -65,10 +61,6 @@ module.exports = Object.freeze({
     },
     COLLECTION: [
         {
-            ID: 0,
-            TEXT: 'Desert'
-        },
-        {
             ID: 1,
             TEXT: 'Fairway (Correct)'
         },
@@ -82,7 +74,7 @@ module.exports = Object.freeze({
         },
         {
             ID: 4,
-            TEXT: 'Fescue'
+            TEXT: 'Worse than Rough'
         },
         {
             ID: 5,

@@ -1,9 +1,147 @@
 <template>
-    <v-card outlined>
+    <v-card outlined elevation="5">
         <v-container>
-            <v-layout wrap align-center>
+            <v-layout wrap align-center class="pb-1">
+                <v-flex shrink class="pt-0 pb-0">
+                    <span class="font-weight-bold">({{roundStroke.number}}) &ndash; Hole {{roundHoleNumber}} &ndash; Par {{roundHolePar}}</span>   
+                </v-flex>
                 <v-flex grow class="pt-0 pb-0">
-                    <span class="title">Hole {{roundHoleNumber}} &ndash; Par {{roundHolePar}} &ndash; Stroke {{roundStroke.number}}</span>   
+                    <v-item-group :value="roundStroke.terrainStartTypeId" mandatory>
+                        <v-layout wrap align-center>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.TEEBOX.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.TEEBOX.ID">
+                                    <v-card outlined :color="active ? 'grey' : ''">
+                                        <v-card-title class="pa-1">
+                                            <span class="caption text-center font-weight-bold">Teebox</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.FAIRWAY_CORRECT.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.FAIRWAY_CORRECT.ID">
+                                    <v-card outlined :color="active ? 'green' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Fairway <v-icon small :color="active ? '' : 'green'">mdi-check-bold</v-icon></span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.FAIRWAY_INCORRECT.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.FAIRWAY_INCORRECT.ID">
+                                    <v-card outlined :color="active ? 'green' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Fairway <v-icon small color="red">mdi-close-thick</v-icon></span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.ROUGH_FIRST_CUT.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.ROUGH_FIRST_CUT.ID">
+                                    <v-card outlined :color="active ? 'light-green darken-3' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="$vuetify.theme.dark ? '' : ( active ? 'white--text' : '' )">Rough (1st)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.ROUGH_SECOND_CUT.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.ROUGH_SECOND_CUT.ID">
+                                    <v-card outlined :color="active ? 'green darken-4' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="$vuetify.theme.dark ? '' : ( active ? 'white--text' : '' )">Rough (2nd)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.WORSE_THAN_ROUGH.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.WORSE_THAN_ROUGH.ID">
+                                    <v-card outlined :color="active ? 'lime darken-4' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="$vuetify.theme.dark ? '' : ( active ? 'white--text' : '' )">Worse than Rough</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.FRINGE.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.FRINGE.ID">
+                                    <v-card outlined :color="active ? 'green' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Fringe</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.GREEN.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.GREEN.ID">
+                                    <v-card outlined :color="active ? 'light-green lighten-1' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Green</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.HOLE.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.HOLE.ID">
+                                    <v-card outlined :color="active ? 'green accent-4' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold"><v-icon small :color="active ? '' : 'green accent-4'">mdi-flag-variant</v-icon></span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.FAIRWAY_BUNKER.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.FAIRWAY_BUNKER.ID">
+                                    <v-card outlined :color="active ? 'amber lighten-4' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="active ? 'black--text' : ''">Bunker (F)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.GREENSIDE_BUNKER.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.GREENSIDE_BUNKER.ID">
+                                    <v-card outlined :color="active ? 'amber lighten-4' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="active ? 'black--text' : ''">Bunker (G)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.LATERAL_HAZARD.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.LATERAL_HAZARD.ID">
+                                    <v-card outlined :color="active ? 'red' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Hazard (L)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.STANDARD_HAZARD.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.STANDARD_HAZARD.ID">
+                                    <v-card outlined :color="active ? 'yellow darken-2' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Hazard (S)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="roundStroke.terrainStartTypeId === TerrainType.TYPES.OUT_OF_BOUNDS.ID">
+                                <v-item v-slot:default="{ active }" :value="TerrainType.TYPES.OUT_OF_BOUNDS.ID">
+                                    <v-card outlined :color="active ? 'highContrast' : ''">
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="active ? ($vuetify.theme.dark ? 'black--text' : 'white--text') : ''">OB</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                        </v-layout>
+                    </v-item-group>
+                </v-flex>
+                <v-flex shrink class="pt-0 pb-0 pr-0">
+                    <v-btn fab elevation="0" x-small class="pa-0" @click.stop="expanded = !expanded" :color="expanded ? 'teal accent-3' : ''">
+                        <v-icon v-if="expanded">mdi-unfold-less-horizontal</v-icon>
+                        <v-icon v-else>mdi-unfold-more-horizontal</v-icon>
+                    </v-btn>
                 </v-flex>
                 <v-flex shrink class="pt-0 pb-0 pr-0">
                     <v-btn icon class="pa-0" @click.stop="$emit('setSelectedRoundStroke', roundStroke)">
@@ -11,11 +149,12 @@
                     </v-btn>
                 </v-flex>
             </v-layout>
+            <v-divider/>
             <v-layout wrap align-center>
-                <v-flex xs12 class="pl-3 pr-3 pt-2 pb-3">
+                <v-flex xs12 class="pl-3 pr-3 pt-3 pb-3">
                     <v-item-group :value="roundStroke.clubId">
                         <v-layout wrap align-center>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(0)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(0) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 0 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 0 ? null : 0})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -28,7 +167,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(1)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(1) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 1 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 1 ? null : 1})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -41,7 +180,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(2)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(2) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 2 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 2 ? null : 2})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -54,7 +193,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(3)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(3) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 3 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 3 ? null : 3})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -67,7 +206,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(4)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(4) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 4 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 4 ? null : 4})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -80,7 +219,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(5)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(5) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 5 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="5" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 5 ? null : 5})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -93,7 +232,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(6)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(6) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 6 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="6" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 6 ? null : 6})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -106,7 +245,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(7)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(7) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 7 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="7" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 7 ? null : 7})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -119,7 +258,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(8)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(8) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 8 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="8" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 8 ? null : 8})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -132,7 +271,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(9)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(9) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 9 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="9" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 9 ? null : 9})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -145,7 +284,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(10)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(10) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 10 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="10" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 10 ? null : 10})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -158,7 +297,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(11)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(11) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 11 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="11" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 11 ? null : 11})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -171,7 +310,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(12)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(12) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 12 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="12" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 12 ? null : 12})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -184,7 +323,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(13)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(13) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 13 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="13" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 13 ? null : 13})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -197,7 +336,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(14)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(14) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 14 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="14" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 14 ? null : 14})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -210,7 +349,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(15)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(15) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 15 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="15" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 15 ? null : 15})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -223,7 +362,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(16)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(16) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 16 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="16" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 16 ? null : 16})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -236,7 +375,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(17)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(17) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 17 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="17" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 17 ? null : 17})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -249,7 +388,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(18)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(18) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 18 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="18" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 18 ? null : 18})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -262,7 +401,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(19)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(19) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 19 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="19" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 19 ? null : 19})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -275,7 +414,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(20)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(20) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 20 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="20" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 20 ? null : 20})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -288,7 +427,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(21)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(21) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 21 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="21" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 21 ? null : 21})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -301,7 +440,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(22)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(22) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 22 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="22" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 22 ? null : 22})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -314,7 +453,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(23)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(23) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 23 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="23" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 23 ? null : 23})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -327,7 +466,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(24)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(24) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 24 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="24" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 24 ? null : 24})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -340,7 +479,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(25)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(25) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 25 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="25" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 25 ? null : 25})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -353,7 +492,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(26)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(26) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 26 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="26" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 26 ? null : 26})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -366,7 +505,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(27)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(27) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 27 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="27" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 27 ? null : 27})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -379,7 +518,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(28)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(28) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 28 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="28" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 28 ? null : 28})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -392,7 +531,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(29)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(29) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 29 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="29" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 29 ? null : 29})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -405,7 +544,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(30)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(30) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 30 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="30" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 30 ? null : 30})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -418,7 +557,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(31)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(31) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 31 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="31" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 31 ? null : 31})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -431,7 +570,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(32)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(32) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 32 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="32" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 32 ? null : 32})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -444,7 +583,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(33)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(33) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 33 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="33" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 33 ? null : 33})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -457,7 +596,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(34)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(34) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 34 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="34" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 34 ? null : 34})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -470,7 +609,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(35)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(35) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 35 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="35" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 35 ? null : 35})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -483,7 +622,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(36)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(36) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 36 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="36" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 36 ? null : 36})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -496,7 +635,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(37)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(37) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 37 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="37" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 37 ? null : 37})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -509,7 +648,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(38)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(38) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 38 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="38" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 38 ? null : 38})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -522,7 +661,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink v-show="$store.state.golfBag.includes(39)" class="pa-1">
+                            <v-flex shrink v-show="$store.state.golfBag.includes(39) && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.clubId === 39 || roundStroke.clubId === null || expanded)" class="pa-1">
                                 <v-item v-slot:default="{ active, toggle }" :value="39" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, clubId: roundStroke.clubId === 39 ? null : 39})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" height="34" width="34">
                                         <v-container fill-height class="pa-0">
@@ -543,7 +682,7 @@
                 <v-flex xs12 class="pl-3 pr-3 pt-2 pb-3">
                     <v-item-group :value="roundStroke.strokeTypeId">
                         <v-layout wrap align-center>
-                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId !== 0 && roundStroke.clubId !== 39 && roundStroke.clubId !== null">
+                            <v-flex shrink class="pa-1" v-show="(roundStroke.clubId >= 1 && roundStroke.clubId <= 38 && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.strokeTypeId === null)) || roundStroke.strokeTypeId === 0 || expanded">
                                 <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 0 ? null : 0})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
                                         <v-card-title class="pa-1">
@@ -552,7 +691,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId >= 25 && roundStroke.clubId <= 38">
+                            <v-flex shrink class="pa-1" v-show="(roundStroke.clubId >= 25 && roundStroke.clubId <= 38 && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.strokeTypeId === null)) || roundStroke.strokeTypeId === 1 || expanded">
                                 <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 1 ? null : 1})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
                                         <v-card-title class="pa-1">
@@ -561,7 +700,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId !== 39 && roundStroke.clubId !== null">
+                            <v-flex shrink class="pa-1" v-show="(roundStroke.clubId !== null && roundStroke.clubId <= 38 && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.strokeTypeId === null)) || roundStroke.strokeTypeId === 2 || expanded">
                                 <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 2 ? null : 2})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
                                         <v-card-title class="pa-1">
@@ -570,7 +709,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId >= 25 && roundStroke.clubId <= 38">
+                            <v-flex shrink class="pa-1" v-show="(roundStroke.clubId >= 25 && roundStroke.clubId <= 38 && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.strokeTypeId === null)) || roundStroke.strokeTypeId === 3 || expanded">
                                 <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 3 ? null : 3})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
                                         <v-card-title class="pa-1">
@@ -579,7 +718,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId !== 39 && roundStroke.clubId !== null">
+                            <v-flex shrink class="pa-1" v-show="(roundStroke.clubId !== null && roundStroke.clubId <= 38 && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.strokeTypeId === null)) || roundStroke.strokeTypeId === 4 || expanded">
                                 <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 4 ? null : 4})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
                                         <v-card-title class="pa-1">
@@ -588,7 +727,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId === 39">
+                            <v-flex shrink class="pa-1" v-show="(roundStroke.clubId === 39 && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.strokeTypeId === null)) || roundStroke.strokeTypeId === 5 || expanded">
                                 <v-item v-slot:default="{ active, toggle }" :value="5" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 5 ? null : 5})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
                                         <v-card-title class="pa-1">
@@ -597,7 +736,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId === 39">
+                            <v-flex shrink class="pa-1" v-show="(roundStroke.clubId === 39 && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.strokeTypeId === null)) || roundStroke.strokeTypeId === 6 || expanded">
                                 <v-item v-slot:default="{ active, toggle }" :value="6" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 6 ? null : 6})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
                                         <v-card-title class="pa-1">
@@ -606,7 +745,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink class="pa-1" v-show="roundStroke.clubId === 39">
+                            <v-flex shrink class="pa-1" v-show="(roundStroke.clubId === 39 && ((nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.strokeTypeId === null)) || roundStroke.strokeTypeId === 7 || expanded">
                                 <v-item v-slot:default="{ active, toggle }" :value="7" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 7 ? null : 7})">
                                     <v-card outlined :color="active ? 'primary' : ''" @click="toggle" >
                                         <v-card-title class="pa-1">
@@ -615,7 +754,7 @@
                                     </v-card>
                                 </v-item>
                             </v-flex>
-                            <v-flex shrink class="pa-1">
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.strokeTypeId === 8 || roundStroke.strokeTypeId === null || expanded">
                                 <v-item v-slot:default="{ active, toggle }" :value="8" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId === 8 ? null : 8})">
                                     <v-card outlined :color="active ? 'red' : ''" @click="toggle" >
                                         <v-card-title class="pa-1">
@@ -628,70 +767,7 @@
                     </v-item-group>
                 </v-flex>
             </v-layout>
-            <!-- <v-layout wrap align-center>
-                <v-flex xs12>
-                    <v-select 
-                        v-model="roundStroke.strokeTypeId"
-                        outlined dense color="highContrast" item-color="highContrast"
-                        label="Stroke Type"
-                        :items="StrokeType.TYPES.COLLECTION"
-                        item-text="TEXT"
-                        item-value="ID"
-                        return-object
-                        hide-details :loading="false" loader-height="4"
-                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, strokeTypeId: roundStroke.strokeTypeId.ID})"
-                    >
-                        <template v-slot:item="{item}">
-                            <span class="caption">{{item.TEXT}}</span>
-                        </template>
-                        <template v-slot:selection="{item}">
-                            <span class="caption">{{item.TEXT}}</span>
-                        </template>
-                    </v-select>
-                </v-flex>
-            </v-layout> -->
-            <v-layout wrap align-center>
-                <v-flex xs6>
-                    <v-select 
-                        v-model="roundStroke.terrainStartTypeId"
-                        outlined dense color="highContrast" item-color="highContrast"
-                        label="Start Terrain"
-                        :items="TerrainType.TYPES.COLLECTION"
-                        item-text="TEXT"
-                        item-value="ID"
-                        return-object
-                        hide-details :loading="false" loader-height="4"
-                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainStartTypeId: roundStroke.terrainStartTypeId.ID})"
-                    >
-                        <template v-slot:item="{item}">
-                            <span class="caption">{{item.TEXT}}</span>
-                        </template>
-                        <template v-slot:selection="{item}">
-                            <span class="caption">{{item.TEXT}}</span>
-                        </template>
-                    </v-select>
-                </v-flex>
-                <v-flex xs6>
-                    <v-select 
-                        v-model="roundStroke.terrainResultTypeId"
-                        outlined dense color="highContrast" item-color="highContrast"
-                        label="Result Terrain"
-                        :items="TerrainType.TYPES.COLLECTION"
-                        item-text="TEXT"
-                        item-value="ID"
-                        return-object
-                        hide-details :loading="false" loader-height="4"
-                        @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId.ID})"
-                    >
-                        <template v-slot:item="{item}">
-                            <span class="caption">{{item.TEXT}}</span>
-                        </template>
-                        <template v-slot:selection="{item}">
-                            <span class="caption">{{item.TEXT}}</span>
-                        </template>
-                    </v-select>
-                </v-flex>
-            </v-layout>
+            <v-divider/>
             <v-layout wrap align-center justify-center>
                 <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
                     <v-item-group  :value="roundStroke.windTypeId">
@@ -700,53 +776,53 @@
                                     <span class="caption">Wind</span>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: 0})">
+                            <v-layout wrap align-center justify-center v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 0 || roundStroke.windTypeId === 1 || roundStroke.windTypeId === 2 || roundStroke.windTypeId === null || expanded">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 0 || roundStroke.windTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: roundStroke.windTypeId === 0 ? null : 0})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium style="transform:rotate(45deg)" class="pa-1">mdi-chevron-double-left</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: 1})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 1 || roundStroke.windTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: roundStroke.windTypeId === 1 ? null : 1})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-chevron-double-up</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: 2})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 2 || roundStroke.windTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: roundStroke.windTypeId === 2 ? null : 2})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium style="transform:rotate(-45deg)" class="pa-1">mdi-chevron-double-right</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: 3})">
+                            <v-layout wrap align-center justify-center v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 3 || roundStroke.windTypeId === 4 || roundStroke.windTypeId === 5 || roundStroke.windTypeId === null || expanded">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 3 || roundStroke.windTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: roundStroke.windTypeId === 3 ? null : 3})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-chevron-double-left</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: 4})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 4 || roundStroke.windTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: roundStroke.windTypeId === 4 ? null : 4})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium style="transform:rotate(-22.5deg)" class="pa-1">mdi-octagram-outline</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="5" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: 5})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 5 || roundStroke.windTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="5" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: roundStroke.windTypeId === 5 ? null : 5})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-chevron-double-right</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="6" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: 6})">
+                            <v-layout wrap align-center justify-center v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 6 || roundStroke.windTypeId === 7 || roundStroke.windTypeId === 8 || roundStroke.windTypeId === null || expanded">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 6 || roundStroke.windTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="6" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: roundStroke.windTypeId === 6 ? null : 6})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium style="transform:rotate(-45deg)" class="pa-1">mdi-chevron-double-left</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="7" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: 7})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 7 || roundStroke.windTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="7" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: roundStroke.windTypeId === 7 ? null : 7})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-chevron-double-down</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="8" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: 8})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.windTypeId === 8 || roundStroke.windTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="8" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, windTypeId: roundStroke.windTypeId === 8 ? null : 8})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium style="transform:rotate(45deg)" class="pa-1">mdi-chevron-double-right</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
@@ -756,58 +832,58 @@
                 <v-spacer/>
                 <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
                     <v-item-group  :value="roundStroke.accuracyTypeId">
-                            <v-layout wrap align-center>
+                            <v-layout wrap align-center justify-center>
                                 <v-flex xs12 class="text-center pa-0">
                                     <span class="caption">Accuracy</span>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: 0})">
+                            <v-layout wrap align-center justify-center v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 0 || roundStroke.accuracyTypeId === 1 || roundStroke.accuracyTypeId === 2 || roundStroke.accuracyTypeId === null || expanded">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 0 || roundStroke.accuracyTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: roundStroke.accuracyTypeId === 0 ? null : 0})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-top-left</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: 1})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 1 || roundStroke.accuracyTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: roundStroke.accuracyTypeId === 1 ? null : 1})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-up</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: 2})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 2 || roundStroke.accuracyTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: roundStroke.accuracyTypeId === 2 ? null : 2})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-top-right</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: 3})">
+                            <v-layout wrap align-center justify-center v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 3 || roundStroke.accuracyTypeId === 4 || roundStroke.accuracyTypeId === 5 || roundStroke.accuracyTypeId === null || expanded">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 3 || roundStroke.accuracyTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: roundStroke.accuracyTypeId === 3 ? null : 3})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-left</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: 4})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 4 || roundStroke.accuracyTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: roundStroke.accuracyTypeId === 4 ? null : 4})">
                                         <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-bullseye</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="5" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: 5})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 5 || roundStroke.accuracyTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="5" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: roundStroke.accuracyTypeId === 5 ? null : 5})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-right</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="6" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: 6})">
+                            <v-layout wrap align-center justify-center v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 6 || roundStroke.accuracyTypeId === 7 || roundStroke.accuracyTypeId === 8 || roundStroke.accuracyTypeId === null || expanded">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 6 || roundStroke.accuracyTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="6" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: roundStroke.accuracyTypeId === 6 ? null : 6})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-bottom-left</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="7" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: 7})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 7 || roundStroke.accuracyTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="7" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: roundStroke.accuracyTypeId === 7 ? null : 7})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-down</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="8" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: 8})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.accuracyTypeId === 8 || roundStroke.accuracyTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="8" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, accuracyTypeId: roundStroke.accuracyTypeId === 8 ? null : 8})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-bottom-right</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
@@ -815,93 +891,276 @@
                     </v-item-group>
                 </v-flex>
             </v-layout>
-            <v-layout wrap align-center justify-center>
+            <v-divider/>
+            <v-layout wrap align-center>
+                <v-flex xs12 class="pl-3 pr-3 pt-2 pb-3">
+                    <v-item-group :value="roundStroke.terrainResultTypeId">
+                        <v-layout wrap align-center justify-center>
+                            <v-flex xs12 class="text-center pt-0 pb-0">
+                                <span class="caption">Result Terrain</span>
+                            </v-flex>
+                        </v-layout>
+                        <v-layout wrap align-center justify-center>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.TEEBOX.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.TEEBOX.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.TEEBOX.ID ? null : TerrainType.TYPES.TEEBOX.ID})">
+                                    <v-card outlined :color="active ? 'grey' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                            <span class="caption text-center font-weight-bold">Teebox</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.FAIRWAY_CORRECT.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.FAIRWAY_CORRECT.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.FAIRWAY_CORRECT.ID ? null : TerrainType.TYPES.FAIRWAY_CORRECT.ID})">
+                                    <v-card outlined :color="active ? 'green' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Fairway <v-icon medium :color="active ? '' : 'green'">mdi-check-bold</v-icon></span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.FAIRWAY_INCORRECT.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.FAIRWAY_INCORRECT.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.FAIRWAY_INCORRECT.ID ? null : TerrainType.TYPES.FAIRWAY_INCORRECT.ID})">
+                                    <v-card outlined :color="active ? 'green' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Fairway <v-icon medium color="red">mdi-close-thick</v-icon></span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.ROUGH_FIRST_CUT.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.ROUGH_FIRST_CUT.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.ROUGH_FIRST_CUT.ID ? null : TerrainType.TYPES.ROUGH_FIRST_CUT.ID})">
+                                    <v-card outlined :color="active ? 'light-green darken-3' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="$vuetify.theme.dark ? '' : ( active ? 'white--text' : '' )">Rough (1st)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.ROUGH_SECOND_CUT.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.ROUGH_SECOND_CUT.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.ROUGH_SECOND_CUT.ID ? null : TerrainType.TYPES.ROUGH_SECOND_CUT.ID})">
+                                    <v-card outlined :color="active ? 'green darken-4' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="$vuetify.theme.dark ? '' : ( active ? 'white--text' : '' )">Rough (2nd)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.WORSE_THAN_ROUGH.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.WORSE_THAN_ROUGH.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.WORSE_THAN_ROUGH.ID ? null : TerrainType.TYPES.WORSE_THAN_ROUGH.ID})">
+                                    <v-card outlined :color="active ? 'lime darken-4' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="$vuetify.theme.dark ? '' : ( active ? 'white--text' : '' )">Worse than Rough</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.FRINGE.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.FRINGE.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.FRINGE.ID ? null : TerrainType.TYPES.FRINGE.ID})">
+                                    <v-card outlined :color="active ? 'green' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Fringe</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.GREEN.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.GREEN.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.GREEN.ID ? null : TerrainType.TYPES.GREEN.ID})">
+                                    <v-card outlined :color="active ? 'light-green lighten-1' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Green</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.HOLE.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.HOLE.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.HOLE.ID ? null : TerrainType.TYPES.HOLE.ID})">
+                                    <v-card outlined :color="active ? 'green accent-4' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold"><v-icon small :color="active ? '' : 'green accent-4'">mdi-flag-variant</v-icon></span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.FAIRWAY_BUNKER.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.FAIRWAY_BUNKER.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.FAIRWAY_BUNKER.ID ? null : TerrainType.TYPES.FAIRWAY_BUNKER.ID})">
+                                    <v-card outlined :color="active ? 'amber lighten-4' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="active ? 'black--text' : ''">Bunker (F)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.GREENSIDE_BUNKER.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.GREENSIDE_BUNKER.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.GREENSIDE_BUNKER.ID ? null : TerrainType.TYPES.GREENSIDE_BUNKER.ID})">
+                                    <v-card outlined :color="active ? 'amber lighten-4' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="active ? 'black--text' : ''">Bunker (G)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.LATERAL_HAZARD.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.LATERAL_HAZARD.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.LATERAL_HAZARD.ID ? null : TerrainType.TYPES.LATERAL_HAZARD.ID})">
+                                    <v-card outlined :color="active ? 'red' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Hazard (L)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.STANDARD_HAZARD.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.STANDARD_HAZARD.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.STANDARD_HAZARD.ID ? null : TerrainType.TYPES.STANDARD_HAZARD.ID})">
+                                    <v-card outlined :color="active ? 'yellow darken-2' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold">Hazard (S)</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                            <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.terrainResultTypeId === TerrainType.TYPES.OUT_OF_BOUNDS.ID || roundStroke.terrainResultTypeId === null || expanded">
+                                <v-item v-slot:default="{ active, toggle }" :value="TerrainType.TYPES.OUT_OF_BOUNDS.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, terrainResultTypeId: roundStroke.terrainResultTypeId === TerrainType.TYPES.OUT_OF_BOUNDS.ID ? null : TerrainType.TYPES.OUT_OF_BOUNDS.ID})">
+                                    <v-card outlined :color="active ? 'highContrast' : ''" @click="toggle" >
+                                        <v-card-title class="pa-1">
+                                                <span class="caption text-center font-weight-bold" :class="active ? ($vuetify.theme.dark ? 'black--text' : 'white--text') : ''">OB</span>
+                                        </v-card-title>
+                                    </v-card>
+                                </v-item>
+                            </v-flex>
+                        </v-layout>
+                    </v-item-group>
+                </v-flex>
+            </v-layout>
+            <v-divider/>
+            <v-layout wrap align-center justify-space-between>
                 <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
                     <v-item-group  :value="roundStroke.lieQualityTypeId">
-                            <v-layout wrap align-center>
-                                <v-flex xs12 class="text-center pa-0">
+                            <v-layout wrap align-center justify-center>
+                                <v-flex xs12 class="text-center pa-0 ">
                                     <span class="caption">Lie Quality</span>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, lieQualityTypeId: 0})">
-                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-down</v-icon></v-card>
+                            <v-layout wrap align-center justify-center>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.lieQualityTypeId === 0 || roundStroke.lieQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, lieQualityTypeId: roundStroke.lieQualityTypeId === 0 ? null : 0})">
+                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumb-down</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, lieQualityTypeId: 1})">
-                                        <v-card :color="active ? 'yellow darken-1' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumbs-up-down</v-icon></v-card>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.lieQualityTypeId === 1 || roundStroke.lieQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, lieQualityTypeId: roundStroke.lieQualityTypeId === 1 ? null : 1})">
+                                        <v-card :color="active ? 'yellow darken-1' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumbs-up-down</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, lieQualityTypeId: 2})">
-                                        <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-up</v-icon></v-card>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.lieQualityTypeId === 2 || roundStroke.lieQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, lieQualityTypeId: roundStroke.lieQualityTypeId === 2 ? null : 2})">
+                                        <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumb-up</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                             </v-layout>
                     </v-item-group>
                 </v-flex>
-                <v-spacer/>
                 <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
                     <v-item-group  :value="roundStroke.contactQualityTypeId">
-                            <v-layout wrap align-center>
+                            <v-layout wrap align-center justify-center>
                                 <v-flex xs12 class="text-center pa-0">
                                     <span class="caption">Strike Quality</span>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, contactQualityTypeId: 0})">
-                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-down</v-icon></v-card>
+                            <v-layout wrap align-center justify-center>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.contactQualityTypeId === 0 || roundStroke.contactQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, contactQualityTypeId: roundStroke.contactQualityTypeId === 0 ? null : 0})">
+                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumb-down</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, contactQualityTypeId: 1})">
-                                        <v-card :color="active ? 'yellow darken-1' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumbs-up-down</v-icon></v-card>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.contactQualityTypeId === 1 || roundStroke.contactQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, contactQualityTypeId: roundStroke.contactQualityTypeId === 1 ? null : 1})">
+                                        <v-card :color="active ? 'yellow darken-1' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumbs-up-down</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, contactQualityTypeId: 2})">
-                                        <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-up</v-icon></v-card>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.contactQualityTypeId === 2 || roundStroke.contactQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, contactQualityTypeId: roundStroke.contactQualityTypeId === 2 ? null : 2})">
+                                        <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumb-up</v-icon></v-card>
+                                    </v-item>
+                                </v-flex>
+                            </v-layout>
+                    </v-item-group>
+                </v-flex>
+                <v-flex shrink class="pl-3 pr-3 pt-1 pb-3" v-if="roundStroke.clubId === 39">
+                    <v-item-group  :value="roundStroke.breakReadQualityTypeId">
+                            <v-layout wrap align-center justify-center>
+                                <v-flex xs12 class="text-center pa-0">
+                                    <span class="caption">Break Read Quality</span>
+                                </v-flex>
+                            </v-layout>
+                            <v-layout wrap align-center justify-center>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.breakReadQualityTypeId === 0 || roundStroke.breakReadQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakReadQualityTypeId: roundStroke.breakReadQualityTypeId === 0 ? null : 0})">
+                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumb-down</v-icon></v-card>
+                                    </v-item>
+                                </v-flex>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.breakReadQualityTypeId === 1 || roundStroke.breakReadQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakReadQualityTypeId: roundStroke.breakReadQualityTypeId === 1 ? null : 1})">
+                                        <v-card :color="active ? 'yellow darken-1' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumbs-up-down</v-icon></v-card>
+                                    </v-item>
+                                </v-flex>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.breakReadQualityTypeId === 2 || roundStroke.breakReadQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakReadQualityTypeId: roundStroke.breakReadQualityTypeId === 2 ? null : 2})">
+                                        <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumb-up</v-icon></v-card>
+                                    </v-item>
+                                </v-flex>
+                            </v-layout>
+                    </v-item-group>
+                </v-flex>
+                <v-flex shrink class="pl-3 pr-3 pt-1 pb-3" v-else>
+                    <v-item-group  :value="roundStroke.leaveQualityTypeId">
+                            <v-layout wrap align-center justify-center>
+                                <v-flex xs12 class="text-center pa-0">
+                                    <span class="caption">Leave Quality</span>
+                                </v-flex>
+                            </v-layout>
+                            <v-layout wrap align-center justify-center>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.leaveQualityTypeId === 0 || roundStroke.leaveQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, leaveQualityTypeId: roundStroke.leaveQualityTypeId === 0 ? null : 0})">
+                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumb-down</v-icon></v-card>
+                                    </v-item>
+                                </v-flex>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.leaveQualityTypeId === 1 || roundStroke.leaveQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, leaveQualityTypeId: roundStroke.leaveQualityTypeId === 1 ? null : 1})">
+                                        <v-card :color="active ? 'yellow darken-1' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumbs-up-down</v-icon></v-card>
+                                    </v-item>
+                                </v-flex>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.leaveQualityTypeId === 2 || roundStroke.leaveQualityTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, leaveQualityTypeId: roundStroke.leaveQualityTypeId === 2 ? null : 2})">
+                                        <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon small class="pa-1">mdi-thumb-up</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                             </v-layout>
                     </v-item-group>
                 </v-flex>
             </v-layout>
-            <v-layout wrap align-center justify-center v-if="!(roundStroke.strokeTypeId === 5 || roundStroke.strokeTypeId === 6 ||roundStroke.strokeTypeId === 7)">
+            <v-divider/>
+            <v-layout wrap align-center justify-center v-if="roundStroke.clubId !== 39">
                 <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
-                    <v-item-group  :value="roundStroke.exhibitedShapeTypeId">
-                            <v-layout wrap align-center>
+                    <v-item-group  :value="roundStroke.intendedShapeTypeId">
+                            <v-layout wrap align-center justify-center>
                                 <v-flex xs12 class="text-center pa-0">
-                                    <span class="caption">Exhibited Shape</span>
+                                    <span class="caption">Intended Shape</span>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 0})">
-                                        <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(-45deg)">mdi-arrow-up-bold</v-icon></v-card>
-                                    </v-item>
-                                </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 1})">
+                            <v-layout wrap align-center justify-center>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.intendedShapeTypeId === IntendedShapeType.TYPES.DRAW.ID || roundStroke.intendedShapeTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="IntendedShapeType.TYPES.DRAW.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, intendedShapeTypeId: roundStroke.intendedShapeTypeId === IntendedShapeType.TYPES.DRAW.ID ? null : IntendedShapeType.TYPES.DRAW.ID})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(90deg)">mdi-undo</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 2})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.intendedShapeTypeId === IntendedShapeType.TYPES.STRAIGHT.ID || roundStroke.intendedShapeTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="IntendedShapeType.TYPES.STRAIGHT.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, intendedShapeTypeId: roundStroke.intendedShapeTypeId === IntendedShapeType.TYPES.STRAIGHT.ID ? null : IntendedShapeType.TYPES.STRAIGHT.ID})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-up-bold</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 3})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.intendedShapeTypeId === IntendedShapeType.TYPES.FADE.ID || roundStroke.intendedShapeTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="IntendedShapeType.TYPES.FADE.ID" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, intendedShapeTypeId: roundStroke.intendedShapeTypeId === IntendedShapeType.TYPES.FADE.ID ? null : IntendedShapeType.TYPES.FADE.ID})">
                                         <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(-90deg)">mdi-redo</v-icon></v-card>
-                                    </v-item>
-                                </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: 4})">
-                                        <v-card :color="active ? 'primary' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(45deg)">mdi-arrow-up-bold</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                             </v-layout>
@@ -909,55 +1168,43 @@
                 </v-flex>
                 <v-spacer/>
                 <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
-                    <v-item-group  :value="roundStroke.shapeIntendedTypeId">
-                            <v-layout wrap align-center>
+                    <v-item-group  :value="roundStroke.exhibitedShapeTypeId">
+                            <v-layout wrap align-center justify-center>
                                 <v-flex xs12 class="text-center pa-0">
-                                    <span class="caption">Shape Intentional?</span>
+                                    <span class="caption">Exhibited Shape</span>
                                 </v-flex>
                             </v-layout>
                             <v-layout wrap align-center justify-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, shapeIntendedTypeId: 0})">
-                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-down</v-icon></v-card>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.exhibitedShapeTypeId === 0 || roundStroke.exhibitedShapeTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: roundStroke.exhibitedShapeTypeId === 0 ? null : 0})">
+                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(-45deg)">mdi-arrow-up-bold</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, shapeIntendedTypeId: 1})">
-                                        <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-up</v-icon></v-card>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.exhibitedShapeTypeId === 1 || roundStroke.exhibitedShapeTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: roundStroke.exhibitedShapeTypeId === 1 ? null : 1})">
+                                        <v-card :color="active ? (roundStroke.intendedShapeTypeId === 1 ? 'green' : 'red') : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(90deg)">mdi-undo</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                            </v-layout>
-                    </v-item-group>
-                </v-flex>
-            </v-layout>
-            <v-layout wrap align-center justify-center v-if="roundStroke.strokeTypeId === 5 || roundStroke.strokeTypeId === 6 || roundStroke.strokeTypeId === 7">
-                <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
-                    <v-item-group  :value="roundStroke.breakReadQualityTypeId">
-                            <v-layout wrap align-center>
-                                <v-flex xs12 class="text-center pa-0">
-                                    <span class="caption">Break Read Quality</span>
-                                </v-flex>
-                            </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakReadQualityTypeId: 0})">
-                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-down</v-icon></v-card>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.exhibitedShapeTypeId === 2 || roundStroke.exhibitedShapeTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: roundStroke.exhibitedShapeTypeId === 2 ? null : 2})">
+                                        <v-card :color="active ? (roundStroke.intendedShapeTypeId === 2 ? 'green' : 'red') : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-arrow-up-bold</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakReadQualityTypeId: 1})">
-                                        <v-card :color="active ? 'yellow darken-1' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumbs-up-down</v-icon></v-card>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.exhibitedShapeTypeId === 3 || roundStroke.exhibitedShapeTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: roundStroke.exhibitedShapeTypeId === 3 ? null : 3})">
+                                        <v-card :color="active ? (roundStroke.intendedShapeTypeId === 3 ? 'green' : 'red') : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(-90deg)">mdi-redo</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, breakReadQualityTypeId: 2})">
-                                        <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-thumb-up</v-icon></v-card>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.exhibitedShapeTypeId === 4 || roundStroke.exhibitedShapeTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, exhibitedShapeTypeId: roundStroke.exhibitedShapeTypeId === 4 ? null : 4})">
+                                        <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1" style="transform:rotate(45deg)">mdi-arrow-up-bold</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
                             </v-layout>
                     </v-item-group>
                 </v-flex>
             </v-layout>
+            <v-divider v-if="roundStroke.clubId !== 39"/>
             <v-layout wrap align-center justify-center>
                 <v-flex shrink class="pl-3 pr-3 pt-1 pb-3">
                     <v-item-group  :value="roundStroke.satisfactionTypeId">
@@ -966,29 +1213,29 @@
                                     <span class="caption">Satisfaction</span>
                                 </v-flex>
                             </v-layout>
-                            <v-layout wrap align-center>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: 0})">
+                            <v-layout wrap align-center justify-center>
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.satisfactionTypeId === 0 || roundStroke.satisfactionTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="0" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: roundStroke.satisfactionTypeId === 0 ? null : 0})">
                                         <v-card :color="active ? 'red' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-emoticon-dead</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: 1})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.satisfactionTypeId === 1 || roundStroke.satisfactionTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="1" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: roundStroke.satisfactionTypeId === 1 ? null : 1})">
                                         <v-card :color="active ? 'orange' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-emoticon-sad</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: 2})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.satisfactionTypeId === 2 || roundStroke.satisfactionTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="2" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: roundStroke.satisfactionTypeId === 2 ? null : 2})">
                                         <v-card :color="active ? 'yellow darken-1' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-emoticon-neutral</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: 3})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.satisfactionTypeId === 3 || roundStroke.satisfactionTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="3" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: roundStroke.satisfactionTypeId === 3 ? null : 3})">
                                         <v-card :color="active ? 'lime' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-emoticon-happy</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
-                                <v-flex shrink class="pa-1">
-                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: 4})">
+                                <v-flex shrink class="pa-1" v-show="(nextRoundStroke === null && roundStroke.terrainResultTypeId !== TerrainType.TYPES.HOLE.ID) || roundStroke.satisfactionTypeId === 4 || roundStroke.satisfactionTypeId === null || expanded">
+                                    <v-item v-slot:default="{ active, toggle }" :value="4" @change="$emit('update', {roundStrokeId: roundStroke.roundStrokeId, satisfactionTypeId: roundStroke.satisfactionTypeId === 4 ? null : 4})">
                                         <v-card :color="active ? 'green' : ''" @click.stop="toggle" outlined class="text-center"><v-icon medium class="pa-1">mdi-emoticon-excited</v-icon></v-card>
                                     </v-item>
                                 </v-flex>
@@ -1588,6 +1835,7 @@
 
 <script>
 import BreakReadQualityType from '../models/BreakReadQualityType';
+import IntendedShapeType from '../models/IntendedShapeType';
 import ExhibitedShapeType from '../models/ExhibitedShapeType';
 import AccuracyType from '../models/AccuracyType';
 import LieQualityType from '../models/LieQualityType';
@@ -1605,11 +1853,13 @@ export default {
         roundHolePar: Number,
         roundStroke: Object,
         previousRoundStroke: Object,
+        nextRoundStroke: Object,
         golfBag: Array,
     },
 
     data: () => ({
         BreakReadQualityType: BreakReadQualityType,
+        IntendedShapeType: IntendedShapeType,
         ExhibitedShapeType: ExhibitedShapeType,
         AccuracyType: AccuracyType,
         LieQualityType: LieQualityType,
@@ -1617,6 +1867,7 @@ export default {
         TerrainType: TerrainType,
         WindType: WindType,
         SatisfactionType: SatisfactionType,
+        expanded: false,
     }),
 
     watch: {

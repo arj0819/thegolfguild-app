@@ -343,14 +343,14 @@
                         </v-layout>
                         <v-layout wrap justify-center>
                             <v-flex xs12>
-                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 8 : false">
+                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 8 || selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === null : false">
                                     <v-icon>mdi-plus</v-icon>{{selectedRoundHole.RoundStrokes.length > 0 ? 'Add Another Stroke' : 'Add a Stroke'}}
                                 </v-btn>
                             </v-flex>
                         </v-layout>
                         <v-layout v-if="!rearrangeStrokesMode" wrap align-center>
                             <v-flex xs12 v-for="(roundStroke, i) in selectedRoundHole.RoundStrokes" :key="roundStroke.roundStrokeId">
-                                <round-stroke :roundStroke="roundStroke" :roundHoleNumber="selectedRoundHole.number" :roundHolePar="selectedRoundHole.par" :previousRoundStroke="selectedRoundHole.RoundStrokes[i - 1] || null" @setSelectedRoundStroke="setSelectedRoundStroke" @update="updateRoundStroke"></round-stroke>
+                                <round-stroke :roundStroke="roundStroke" :roundHoleNumber="selectedRoundHole.number" :roundHolePar="selectedRoundHole.par" :previousRoundStroke="selectedRoundHole.RoundStrokes[i - 1] || null" :nextRoundStroke="selectedRoundHole.RoundStrokes[i + 1] || null" @setSelectedRoundStroke="setSelectedRoundStroke" @update="updateRoundStroke"></round-stroke>
                             </v-flex>
                         </v-layout>
                         <draggable v-else v-model="selectedRoundHole.RoundStrokes" handle=".handle" class="layout wrap align-center" group="roundStrokes" draggable=".draggable">
@@ -373,7 +373,7 @@
                         </draggable>
                         <v-layout wrap align-center v-if="selectedRoundHole.RoundStrokes.length > 0">
                             <v-flex xs12>
-                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 8 : false">
+                                <v-btn large outlined block @click.stop="addStrokeToRoundHole(selectedRoundHole)" :disabled="selectedRoundHole.RoundStrokes.length > 0 ? selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === 8 || selectedRoundHole.RoundStrokes[selectedRoundHole.RoundStrokes.length - 1].terrainResultTypeId === null : false">
                                     <v-icon>mdi-plus</v-icon>Add Another Stroke
                                 </v-btn>
                             </v-flex>
